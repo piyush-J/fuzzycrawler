@@ -1,7 +1,7 @@
 version: 2.1
 
-tool-test:
-  pytest:
+jobs:
+  tool-pytest:
     machine: 
       image: ubuntu-2004:202101-01
     steps:
@@ -15,5 +15,5 @@ tool-test:
 
 workflows:
   Pipeline:
-    tool-test:
-      - pytest
+    jobs:
+      - tool-pytest
