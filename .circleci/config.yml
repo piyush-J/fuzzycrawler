@@ -1,7 +1,7 @@
 version: 2.1
 
-tool-test:
-  pytest:
+jobs:
+  tool-pytest:
     machine: 
       image: ubuntu-2004:202101-01
     steps:
@@ -11,9 +11,9 @@ tool-test:
           command: |
             set -x
             cd docker
-            docker-compose run --rm pytest
+            docker-compose run --rm tool-pytest
 
 workflows:
   Pipeline:
-    tool-test:
-      - pytest
+    jobs:
+      - tool-pytest
