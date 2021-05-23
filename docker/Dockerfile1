@@ -1,0 +1,4 @@
+FROM python:3.9.5
+RUN mkdir python
+COPY /python/ ./python/
+RUN cd python
