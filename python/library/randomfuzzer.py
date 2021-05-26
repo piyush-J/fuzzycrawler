@@ -16,7 +16,8 @@ class randomfuzzer:
         if char_end > randomfuzzer.MAXIMUM_CHR_RANGE:
             raise Exception("Character Range Cannot Exceed 11,141,112.")
         if min_length < 1 or max_length < 1 or char_start < 1 or char_end < 1:
-            raise Exception("Arguments must be greater than 1")
+            raise Exception("Arguments must be greater than 0")
+        return True
 
     def fuzzer(min_length: int, max_length: int, char_start: int = DEFAULT_CHAR_START, char_end: int = DEFAULT_CHAR_END) -> str:
         randomfuzzer.logic_validator(
