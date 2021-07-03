@@ -23,8 +23,8 @@ ALTER TABLE `user`
 COMMIT;
 
 INSERT INTO `user`
-  (`fname`,`lname
-  `,`email`,`pass`) VALUES
+  (`fname`,`lname`
+  ,`email`,`pass`) VALUES
 ('John','Doe','john.doe@example.com','Doe@123');
 
 CREATE TABLE `faq` (
