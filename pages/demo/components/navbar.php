@@ -29,6 +29,9 @@ $pagename = basename($_SERVER['PHP_SELF'], ".php");
                     <a class="dropdown-item navbar_dropdown_item" href="./example_mysql_injection_login.php">MYSQL
                         Injection
                         Login</a>
+                    <a class="dropdown-item navbar_dropdown_item" href="./example_mysql_injection_search_box.php">MYSQL
+                        Injection
+                        Search</a>
                     <a class="dropdown-item navbar_dropdown_item" href="./example_members_area.php">Members Area</a>
                     <a class="dropdown-item navbar_dropdown_item" href="./logout.php">Logout</a>
                 </div>
