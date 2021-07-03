@@ -1,4 +1,4 @@
-REATE DATABASE fuzzycrawler_test;
+CREATE DATABASE fuzzycrawler_test;
 USE fuzzycrawler_test;
 CREATE TABLE `user`
 (
