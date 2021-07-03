@@ -51,7 +51,7 @@ if($SResultCount>0){
                         <input type="text" class="form-control navbar_search_input" name="search_box" id="search_box"
                             type="search"
                             placeholder="Search Through Our FAQ Section. [  ')  UNION SELECT Null, email, pass, Null FROM user;--  ]"
-                            aria-label="Search">
+                            aria-label="Search" value="<?php echo $SearchText; ?>">
                         <div class="input-group-append">
                             <button class="input-group-text btn navbar_search_button" type="submit">
                                 <span class="fa fa-search navbar_search_icon"></span>
