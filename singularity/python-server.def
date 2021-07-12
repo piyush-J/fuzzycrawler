@@ -1,0 +1,11 @@
+Bootstrap: docker
+From: python:3.9.5
+
+%files
+    ../python/ /python/
+
+%post
+    pip install gramfuzz
+
+%help
+    This is a apache server container definition for use in singularity.

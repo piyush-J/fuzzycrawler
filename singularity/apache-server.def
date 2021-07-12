@@ -1,0 +1,11 @@
+Bootstrap: docker
+From: php:8.0.1-apache
+
+%files
+    ../pages/ /var/www/html
+
+%post
+    docker-php-ext-install pdo_mysql
+
+%help
+    This is a apache server container definition for use in singularity.

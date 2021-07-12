@@ -1,0 +1,13 @@
+Bootstrap: docker
+From: mysql:8.0.23
+
+%environment
+    export MYSQL_DATABASE="fuzzycrawler_test"
+    export MYSQL_ROOT_PASSWORD="fuzzycrawler@123" 
+
+%files
+    ../mysql/schema.sql /docker-entrypoint-initdb.d
+
+%help
+    This is a mysql server container.er used to illustrate a def file that uses all
+    supported sections.
