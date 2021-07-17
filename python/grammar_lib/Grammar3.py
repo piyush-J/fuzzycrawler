@@ -11,9 +11,9 @@ G3.grammar_input_Parser('O',"opening_Bracket")
 G3.grammar_input_Parser('C',"single_Quote")
 G3.grammar_input_Parser('C',"orderby")
 G3.grammar_input_Parser('C',"Number")
-G3.grammar_input_Parser('O',"Number")
-G3.grammar_input_Parser('O',"Number")
-G3.grammar_input_Parser('O',"Number")
+# G3.grammar_input_Parser('O',"Number") # 2 digit
+# G3.grammar_input_Parser('O',"Number") # 3 digit
+# G3.grammar_input_Parser('O',"Number") # 4 digit
 G3.grammar_input_Parser('O',"apostrophe_OR_Space")
 G3.grammar_input_Parser('C',"comment")
 G3.grammar_input_Parser('O',"closing_Bracket")
