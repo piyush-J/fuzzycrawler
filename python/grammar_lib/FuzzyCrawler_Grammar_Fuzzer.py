@@ -1,4 +1,5 @@
 class FCGFuzzer:
+    # Used by Grammar<x>.py files
     Grammar_Definition_Values={}
     optional_Keys_Position=[]
     optional_Definition_Places_Values={}
