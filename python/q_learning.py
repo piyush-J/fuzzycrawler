@@ -170,7 +170,7 @@ def mutate_string_list(seed: list, pos: int = None, vocab: int = None):
     return eos_and_ind(seed, ind=True)
 
 
-# In[17]:
+# In[19]:
 
 
 class RLFuzz:
@@ -221,6 +221,8 @@ class RLFuzzEnv:
         eos_indexL = self.fuzzer.last_str.index(0)
         new_observationL_ = self.fuzzer.last_str[:eos_indexL]
         last_username_rl = " ".join([ind2word[s] for s in new_observationL_])
+                
+        parser_failed = self.gparse.main(self.gmod.grammarchecker(username_rl))
         
         if len(username_rl.strip()) == 0 or last_username_rl==username_rl: # rudimentary
 #             print(f"SAME_STRING_PENALTY @ {self.episode_step}: ", username_rl)
@@ -368,7 +370,7 @@ class DQNAgent:
         return self.model.predict(np.expand_dims(np.array(state), axis=0))
 
 
-# In[18]:
+# In[20]:
 
 
 env = RLFuzzEnv()
