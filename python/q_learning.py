@@ -92,13 +92,13 @@ VOCAB_SIZE = len(all_vocab)
 VOCAB_SIZE
 
 
-# In[7]:
+# In[9]:
 
 
 # gmod = GCheckModifier()
 # gparse = parser()
 
-# str_test = "('  UNION select NULL email from DUAL #"#all_grammar_inputs[1000]
+# str_test = "('  UNION select pass email from DUAL #"#all_grammar_inputs[1000]
 # print(str_test)
 # for_parsing = gmod.grammarchecker(str_test) 
 # print(for_parsing)
@@ -155,7 +155,7 @@ def eos_and_ind(sampled_list: list, ind: bool = False):
     return [word2ind[s] for s in sampled_list]
 
 def init_string_list():
-    gram_gen_str = loaded_test[random.randint(0, len(loaded_test))]
+    gram_gen_str = loaded_test[random.randint(0, len(loaded_test)-1)] # randint a<=N<=b
     sampled_list = gram_gen_str+(MAX_LENGTH-len(gram_gen_str))*['<EOS>']
     # sampled_list = list(random.sample(all_vocab, MAX_LENGTH-1))+['<EOS>']
     return eos_and_ind(sampled_list)
@@ -407,8 +407,8 @@ for episode in tqdm(range(1, EPISODES + 1), ascii=True, unit='episodes'):
             action_vocab = np.argmax(q_values[1][0])
             # action = np.argmax(agent.get_qs(current_state))
         else:
-            action_pos = np.random.randint(0, env.ACTION_SPACE_SIZE_POS)
-            action_vocab = np.random.randint(0, env.ACTION_SPACE_SIZE_VOCAB)
+            action_pos = np.random.randint(0, env.ACTION_SPACE_SIZE_POS-1) # randint a<=N<=b
+            action_vocab = np.random.randint(0, env.ACTION_SPACE_SIZE_VOCAB-1)
 
         new_state, reward, done = env.step(action_pos, action_vocab)
         episode_reward += reward

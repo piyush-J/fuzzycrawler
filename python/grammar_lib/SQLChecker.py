@@ -197,7 +197,7 @@ class parser:
 if __name__ == "__main__":
     p = parser()
     status = p.main(
-        "SELECT * FROM abc where username=def UNION select version from vinstance /*")  # from GCheckModifier
+        "SELECT * FROM abc where username=def  UNION select passwrd email from DUAL #")  # from GCheckModifier
     if status == 1:
         print("failed")
     else:
