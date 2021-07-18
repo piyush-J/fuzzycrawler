@@ -3,6 +3,7 @@
 
 # In[1]:
 
+
 import pandas as pd
 import nltk
 nltk.download('punkt')
@@ -170,7 +171,7 @@ def mutate_string_list(seed: list, pos: int = None, vocab: int = None):
     return eos_and_ind(seed, ind=True)
 
 
-# In[19]:
+# In[11]:
 
 
 class RLFuzz:
@@ -298,7 +299,7 @@ class DQNAgent:
         x_vocab = Dense(env.ACTION_SPACE_SIZE_VOCAB, activation='linear', name='q_vocab')(x_vocab)
 
         model = keras.Model(inputs=inputs, outputs=[x_pos, x_vocab])
-        model.compile(loss=["mse", "mse"], optimizer=Adam(lr=0.001), metrics=["accuracy", "accuracy"])
+        model.compile(loss="mse", optimizer=Adam(lr=0.001), metrics="accuracy")
         return model
 
     # (observation space, action_pos, action_vocab, reward, new observation space, done)
@@ -352,7 +353,7 @@ class DQNAgent:
             y_vocab.append(current_qs_vocab)
 
         # Fit on all samples as one batch, log only on terminal state
-        self.model.fit(np.array(X), [y_pos, y_vocab], batch_size=MINIBATCH_SIZE, verbose=0, 
+        self.model.fit(np.array(X), [np.array(y_pos), np.array(y_vocab)], batch_size=MINIBATCH_SIZE, verbose=0, 
                        shuffle=False if terminal_state else None)
         #$REM: ,callbacks=[self.tensorboard] 
 
@@ -370,7 +371,7 @@ class DQNAgent:
         return self.model.predict(np.expand_dims(np.array(state), axis=0))
 
 
-# In[20]:
+# In[12]:
 
 
 env = RLFuzzEnv()
