@@ -17,6 +17,7 @@ from tensorflow.keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Activa
 from tensorflow.keras.layers import  RepeatVector, TimeDistributed, GlobalMaxPooling1D, Embedding, Permute
 from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
+from tensorflow.keras import layers
 from tensorflow import keras
 from collections import deque
 import time
@@ -113,7 +114,7 @@ REPLAY_MEMORY_SIZE = 5_000  # last steps to keep for model training
 MIN_REPLAY_MEMORY_SIZE = 150 
 MINIBATCH_SIZE = 128
 UPDATE_TARGET_EVERY = 5
-MODEL_NAME = 'RLFuzzv0.1'
+MODEL_NAME = 'RLFuzzv1.0'
 MIN_REWARD = -200
 MAX_LENGTH = 11 # including EOS
 
@@ -211,6 +212,7 @@ class RLFuzzEnv:
         return observation
 
     def step(self, action_pos, action_vocab):       
+        fuzzing_success = False # init  
         self.episode_step += 1
         self.fuzzer.action(action_pos, action_vocab)
         new_observation = self.fuzzer.seed_str
@@ -256,10 +258,43 @@ class RLFuzzEnv:
                 reward = -self.MUTATION_PENALTY
 
         done = False
-        if self.episode_step >= 100: #TODO: chk -- removed: @ SUCCESS_REWARD
+        if self.episode_step >= 100 or (fuzzing_success and self.episode_step>10): #TODO: chk -- removed: @ SUCCESS_REWARD
             done = True
 
         return new_observation, reward, done
+
+class TransformerBlock(layers.Layer):
+    def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
+        super(TransformerBlock, self).__init__()
+        self.att = layers.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+        self.ffn = keras.Sequential(
+            [layers.Dense(ff_dim, activation="relu"), layers.Dense(embed_dim),]
+        )
+        self.layernorm1 = layers.LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = layers.LayerNormalization(epsilon=1e-6)
+        self.dropout1 = layers.Dropout(rate)
+        self.dropout2 = layers.Dropout(rate)
+
+    def call(self, inputs, training):
+        attn_output, weights = self.att(inputs, inputs, return_attention_scores=True)
+        attn_output1 = self.dropout1(attn_output, training=training)
+        out1 = self.layernorm1(inputs + attn_output1)
+        ffn_output = self.ffn(out1)
+        ffn_output = self.dropout2(ffn_output, training=training)
+        return self.layernorm2(out1 + ffn_output), weights
+    
+class TokenAndPositionEmbedding(layers.Layer):
+    def __init__(self, maxlen, vocab_size, embed_dim):
+        super(TokenAndPositionEmbedding, self).__init__()
+        self.token_emb = layers.Embedding(input_dim=vocab_size, output_dim=embed_dim)
+        self.pos_emb = layers.Embedding(input_dim=maxlen, output_dim=embed_dim)
+
+    def call(self, x):
+        maxlen = tf.shape(x)[-1]
+        positions = tf.range(start=0, limit=maxlen, delta=1)
+        positions = self.pos_emb(positions)
+        x = self.token_emb(x)
+        return x + positions
 
 # Agent class
 class DQNAgent:
@@ -275,28 +310,27 @@ class DQNAgent:
         #$REM
         
     def create_model(self):
+        embed_dim = 64  # Embedding size for each token
+        num_heads = 4  # Number of attention heads
+        ff_dim = 32  # Hidden layer size in feed forward network inside transformer
+
         inputs = Input(shape=(MAX_LENGTH,))
+        embedding_layer = TokenAndPositionEmbedding(MAX_LENGTH, VOCAB_SIZE, embed_dim)
+        x = embedding_layer(inputs)
+        transformer_block = TransformerBlock(embed_dim, num_heads, ff_dim)
+        x, attn_output = transformer_block(x)
+        x = layers.GlobalAveragePooling1D()(x)
+        x = layers.Dropout(0.1)(x)
+        x = layers.Dense(64, activation="relu")(x)
+        x = layers.Dropout(0.1)(x)
 
-        embed=Embedding(VOCAB_SIZE, 100)(inputs)
+        x_pos = layers.Dense(32, activation="relu")(x)
+        x_pos = layers.Dropout(0.1)(x_pos)
+        x_pos = layers.Dense(env.ACTION_SPACE_SIZE_POS, activation='linear', name='q_pos')(x_pos)
 
-        activations= keras.layers.GRU(250, return_sequences=True)(embed)
-
-        attention = TimeDistributed(Dense(1, activation='tanh'))(activations)
-        attention = Flatten()(attention)
-        attention = Activation('softmax')(attention)
-        attention = RepeatVector(250)(attention)
-        attention = Permute([2, 1])(attention)
-
-        sent_representation = keras.layers.multiply([activations, attention])
-        sent_representation = Lambda(lambda xin: K.sum(xin, axis=1))(sent_representation)
-
-        x_pos = Dense(32, activation="relu")(sent_representation)
-        x_pos = Dropout(0.1)(x_pos)
-        x_pos = Dense(env.ACTION_SPACE_SIZE_POS, activation='linear', name='q_pos')(x_pos)
-
-        x_vocab = Dense(32, activation="relu")(sent_representation)
-        x_vocab = Dropout(0.1)(x_vocab)
-        x_vocab = Dense(env.ACTION_SPACE_SIZE_VOCAB, activation='linear', name='q_vocab')(x_vocab)
+        x_vocab = layers.Dense(64, activation="relu")(x)
+        x_vocab = layers.Dropout(0.1)(x_vocab)
+        x_vocab = layers.Dense(env.ACTION_SPACE_SIZE_VOCAB, activation='linear', name='q_vocab')(x_vocab)
 
         model = keras.Model(inputs=inputs, outputs=[x_pos, x_vocab])
         model.compile(loss="mse", optimizer=Adam(lr=0.001), metrics="accuracy")
