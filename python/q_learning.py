@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import pandas as pd
@@ -29,33 +29,45 @@ from collections import Counter
 pd.set_option('display.max_rows', 500)
 
 
-# In[2]:
+# In[ ]:
 
 
 # Grammar1 to Grammar5 files stored in all_grammar_inputs.txt
 
 
-# In[3]:
+# In[ ]:
 
 
 from Stub.Stub import StubSession
 
 
-# In[4]:
+# In[ ]:
 
 
 from grammar_lib.testCaseModifier import GCheckModifier
 from grammar_lib.SQLChecker import parser
 
 
-# In[5]:
+# In[ ]:
 
 
 with open("grammar_lib/all_grammar_inputs.txt") as file:
     all_grammar_inputs = [line.strip() for line in file]
 
 
-# In[6]:
+# In[ ]:
+
+
+all_grammar_inputs_mod = []
+for gram_inp in all_grammar_inputs:
+    if not ('UNION' in gram_inp or 'ORDER' in gram_inp or 'admin' in gram_inp.lower()):
+        all_grammar_inputs_mod.append(gram_inp)
+        all_grammar_inputs_mod.append(gram_inp.replace('OR', 'AND'))
+
+all_grammar_inputs = all_grammar_inputs_mod.copy()
+
+
+# In[ ]:
 
 
 sent = all_grammar_inputs.copy()
@@ -93,7 +105,7 @@ VOCAB_SIZE = len(all_vocab)
 VOCAB_SIZE
 
 
-# In[9]:
+# In[ ]:
 
 
 # gmod = GCheckModifier()
@@ -106,30 +118,30 @@ VOCAB_SIZE
 # gparse.main(for_parsing) # 1 for failed
 
 
-# In[8]:
+# In[ ]:
 
 
 DISCOUNT = 0.99
-REPLAY_MEMORY_SIZE = 5_000  # last steps to keep for model training
+REPLAY_MEMORY_SIZE = 10_000  # last steps to keep for model training
 MIN_REPLAY_MEMORY_SIZE = 150 
 MINIBATCH_SIZE = 128
 UPDATE_TARGET_EVERY = 5
-MODEL_NAME = 'RLFuzzv1.0'
+MODEL_NAME = 'RLFuzzv1.1'
 MIN_REWARD = -200
 MAX_LENGTH = 11 # including EOS
 
-EPISODES = 1_000
+EPISODES = 4_000
 
 epsilon = 1
-EPSILON_DECAY = 0.99975
+EPSILON_DECAY = 0.999
 MIN_EPSILON = 0.001
 
-AGGREGATE_STATS_EVERY = 100  # episodes
+AGGREGATE_STATS_EVERY = 50  # episodes
 
 # succ = [word2ind[s] for s in "( ' OR 1 = 1 ; -- )".lower().split()]+[0, 0] # maintain max_length & EOS
 
 
-# In[9]:
+# In[ ]:
 
 
 loaded_test = [] # store compatible length grammar based init (generation) test strings
@@ -138,7 +150,7 @@ for sent in sent_processed:
         loaded_test.append(sent)
 
 
-# In[10]:
+# In[ ]:
 
 
 def eos_and_ind(sampled_list: list, ind: bool = False):
@@ -172,7 +184,7 @@ def mutate_string_list(seed: list, pos: int = None, vocab: int = None):
     return eos_and_ind(seed, ind=True)
 
 
-# In[11]:
+# In[ ]:
 
 
 class RLFuzz:
@@ -185,7 +197,7 @@ class RLFuzz:
         self.last_str = self.init_string.copy()
 
     def __str__(self):
-        return f'\nOrg: \n{" ".join([ind2word[s] for s in self.init_string])}\n Current seed string: \n{" ".join([ind2word[s] for s in self.seed_str])}'
+        return f'\nOrig seed string: \n{" ".join([ind2word[s] for s in self.init_string])}\nLast seed string: \n{" ".join([ind2word[s] for s in self.last_str])}\nCurr seed string: \n{" ".join([ind2word[s] for s in self.seed_str])}'
 
     def action(self, pos, vocab):
         self.last_str = self.seed_str.copy()
@@ -208,6 +220,8 @@ class RLFuzzEnv:
         
         self.gmod = GCheckModifier()
         self.gparse = parser()
+        
+        self.operation = 'None'
         
         return observation
 
@@ -251,14 +265,16 @@ class RLFuzzEnv:
             fuzzing_success = True if status==1 else False
 
             if fuzzing_success:
-                print(f"SUCCESS_REWARD @ {self.episode_step}: ", username_rl)
+                print(f"\nSUCCESS_REWARD @ {self.episode_step}: ")
+                print(self.fuzzer)
+                print(f"OP: {self.operation}, pos: {action_pos}, vocab: {action_vocab}-{ind2word[action_vocab]}")
                 reward = self.SUCCESS_REWARD
             else:
     #             print(f"MUTATION_PENALTY @ {self.episode_step}: ", username_rl)
                 reward = -self.MUTATION_PENALTY
 
         done = False
-        if self.episode_step >= 100 or (fuzzing_success and self.episode_step>10): #TODO: chk -- removed: @ SUCCESS_REWARD
+        if self.episode_step >= 100 or (fuzzing_success and self.episode_step>25): #TODO: chk -- removed: @ SUCCESS_REWARD
             done = True
 
         return new_observation, reward, done
@@ -335,6 +351,34 @@ class DQNAgent:
         model = keras.Model(inputs=inputs, outputs=[x_pos, x_vocab])
         model.compile(loss="mse", optimizer=Adam(lr=0.001), metrics="accuracy")
         return model
+    
+#     def create_model(self):
+#         inputs = Input(shape=(MAX_LENGTH,))
+
+#         embed=Embedding(VOCAB_SIZE, 100)(inputs)
+
+#         activations= keras.layers.GRU(250, return_sequences=True)(embed)
+
+#         attention = TimeDistributed(Dense(1, activation='tanh'))(activations)
+#         attention = Flatten()(attention)
+#         attention = Activation('softmax')(attention)
+#         attention = RepeatVector(250)(attention)
+#         attention = Permute([2, 1])(attention)
+
+#         sent_representation = keras.layers.multiply([activations, attention])
+#         sent_representation = Lambda(lambda xin: K.sum(xin, axis=1))(sent_representation)
+
+#         x_pos = Dense(32, activation="relu")(sent_representation)
+#         x_pos = Dropout(0.1)(x_pos)
+#         x_pos = Dense(env.ACTION_SPACE_SIZE_POS, activation='linear', name='q_pos')(x_pos)
+
+#         x_vocab = Dense(32, activation="relu")(sent_representation)
+#         x_vocab = Dropout(0.1)(x_vocab)
+#         x_vocab = Dense(env.ACTION_SPACE_SIZE_VOCAB, activation='linear', name='q_vocab')(x_vocab)
+
+#         model = keras.Model(inputs=inputs, outputs=[x_pos, x_vocab])
+#         model.compile(loss="mse", optimizer=Adam(lr=0.001), metrics=["accuracy"])
+#         return model
 
     # (observation space, action_pos, action_vocab, reward, new observation space, done)
     def update_replay_memory(self, transition):
@@ -405,15 +449,15 @@ class DQNAgent:
         return self.model.predict(np.expand_dims(np.array(state), axis=0))
 
 
-# In[12]:
+# In[ ]:
 
 
 env = RLFuzzEnv()
 ep_rewards = [-200]
 
-random.seed(1)
-np.random.seed(1)
-tf.random.set_seed(1)
+# random.seed(1)
+# np.random.seed(1)
+# tf.random.set_seed(1)
 
 if not os.path.isdir('models'):
     os.makedirs('models')
@@ -439,10 +483,17 @@ for episode in tqdm(range(1, EPISODES + 1), ascii=True, unit='episodes'):
             q_values = agent.get_qs(current_state)
             action_pos = np.argmax(q_values[0][0])
             action_vocab = np.argmax(q_values[1][0])
+            env.operation = 'model_argmax'
             # action = np.argmax(agent.get_qs(current_state))
         else:
-            action_pos = np.random.randint(0, env.ACTION_SPACE_SIZE_POS-1) # randint a<=N<=b
-            action_vocab = np.random.randint(0, env.ACTION_SPACE_SIZE_VOCAB-1)
+            if np.random.random() > 0.8:
+                action_pos = random.sample([0,10], 1)[0]
+                action_vocab = random.sample([word2ind["<EOS>"],word2ind["'"]], 1)[0]
+                env.operation = 'random_force'
+            else:
+                action_pos = np.random.randint(0, env.ACTION_SPACE_SIZE_POS-1) # randint a<=N<=b
+                action_vocab = np.random.randint(0, env.ACTION_SPACE_SIZE_VOCAB-1)
+                env.operation = 'random'
 
         new_state, reward, done = env.step(action_pos, action_vocab)
         episode_reward += reward
@@ -463,19 +514,13 @@ for episode in tqdm(range(1, EPISODES + 1), ascii=True, unit='episodes'):
         
         #$REM agent.tensorboard.update_stats(reward_avg=average_reward, reward_min=min_reward, reward_max=max_reward, epsilon=epsilon)
 
-        if min_reward > MIN_REWARD:
-            agent.model.save(f'models/{MODEL_NAME}__{max_reward:_>7.2f}max_{average_reward:_>7.2f}avg_{min_reward:_>7.2f}min__{int(time.time())}.model')
+        #if min_reward > MIN_REWARD:
+        agent.model.save(f'models/{MODEL_NAME}_ep{episode}__epsilon{epsilon:_>7.2f}__{max_reward:_>7.2f}max_{average_reward:_>7.2f}avg_{min_reward:_>7.2f}min__{int(time.time())}.h5')
 
     # Decay epsilon
     if epsilon > MIN_EPSILON:
         epsilon *= EPSILON_DECAY
         epsilon = max(MIN_EPSILON, epsilon)
-
-
-# In[ ]:
-
-
-
 
 
 # In[ ]:
