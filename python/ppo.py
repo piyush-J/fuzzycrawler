@@ -100,7 +100,7 @@ VOCAB_SIZE, max_len
 """
 
 # Hyperparameters of the PPO algorithm
-MODEL_NAME = "RLFuzzPPOSearchRew_v1"
+MODEL_NAME = "RLFuzzPPOSearchPen_v1"
 steps_per_epoch = 50
 epochs = 5000
 gamma = 0.99
@@ -182,11 +182,11 @@ class RLFuzz:
         self.seed_str = mutate_string_list(seed=self.seed_str, pos=pos, vocab=vocab)
 
 class RLFuzzEnv:
-    EXCEPTION_REWARD = 1
-    MUTATION_PENALTY = 0.1
-    SAME_STRING_PENALTY = 0.2 # eos & grammar related
-    PARSER_PENALTY = 0.3
-    SUCCESS_REWARD = 10
+    EXCEPTION_PENALTY = 0.1
+    MUTATION_PENALTY = 0.2
+    SAME_STRING_PENALTY = 0.3 # eos & grammar related
+    PARSER_PENALTY = 0.5
+    SUCCESS_REWARD = 5
     ACTION_SPACE_SIZE_POS = MAX_LENGTH
     ACTION_SPACE_SIZE_VOCAB = VOCAB_SIZE
 
@@ -255,7 +255,7 @@ class RLFuzzEnv:
                 reward = self.SUCCESS_REWARD
             elif exception_success:
 #                 print(f"EXCEPTION_REWARD @ {self.episode_step}: ", username_rl)
-                reward = self.EXCEPTION_REWARD
+                reward = -self.EXCEPTION_PENALTY
             else:
                 # print(f"MUTATION_PENALTY @ {self.episode_step}: ", username_rl)
                 reward = -self.MUTATION_PENALTY
