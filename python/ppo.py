@@ -245,7 +245,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
-import gym
 import scipy.signal
 import time
 
@@ -394,7 +393,7 @@ def train_value_function(observation_buffer, return_buffer):
 
 # Hyperparameters of the PPO algorithm
 steps_per_epoch = 50
-epochs = 10000
+epochs = 5000
 gamma = 0.99
 clip_ratio = 0.2
 policy_learning_rate = 3e-4
@@ -500,16 +499,8 @@ for epoch in tqdm(range(epochs), ascii=True, unit='episodes'):
     print(
         f" Epoch: {epoch + 1}. Mean Return: {(sum_return / num_episodes):.2f}. Mean Length: {(sum_length / num_episodes):.2f}"
     )
-
-
-# In[ ]:
-
-
-actor.save('models/actor.h5')
-
-
-# In[ ]:
-
-
-critic.save('models/critic.h5')
+    
+    if epoch%100==0:
+        actor.save(f'models/ep_{epoch}__{(sum_return / num_episodes):.2f}__actor.h5')
+        critic.save(f'models/ep_{epoch}__{(sum_return / num_episodes):.2f}__critic.h5')
 
