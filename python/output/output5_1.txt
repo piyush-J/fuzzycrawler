@@ -1,0 +1,875 @@
+(tf) G:\Docker Projects\fuzzycrawler_v2_2\python>python ppo.py
+[nltk_data] Downloading package punkt to
+[nltk_data]     C:\Users\mudit\AppData\Roaming\nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package stopwords to
+[nltk_data]     C:\Users\mudit\AppData\Roaming\nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\mudit\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+2021-07-25 18:57:22.244151: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cudart64_110.dll
+num_actions:  132 11*12
+2021-07-25 18:57:29.405672: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library nvcuda.dll
+2021-07-25 18:57:29.430233: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 0 with properties:
+pciBusID: 0000:01:00.0 name: NVIDIA GeForce GTX 1060 6GB computeCapability: 6.1
+coreClock: 1.7845GHz coreCount: 10 deviceMemorySize: 6.00GiB deviceMemoryBandwidth: 178.99GiB/s
+2021-07-25 18:57:29.430397: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cudart64_110.dll
+2021-07-25 18:57:29.476055: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cublas64_11.dll
+2021-07-25 18:57:29.476286: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cublasLt64_11.dll
+2021-07-25 18:57:29.483894: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cufft64_10.dll
+2021-07-25 18:57:29.486419: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library curand64_10.dll
+2021-07-25 18:57:29.497795: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cusolver64_11.dll
+2021-07-25 18:57:29.503630: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cusparse64_11.dll
+2021-07-25 18:57:29.506273: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cudnn64_8.dll
+2021-07-25 18:57:29.506593: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1871] Adding visible gpu devices: 0
+2021-07-25 18:57:29.507386: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-07-25 18:57:29.508156: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 0 with properties:
+pciBusID: 0000:01:00.0 name: NVIDIA GeForce GTX 1060 6GB computeCapability: 6.1
+coreClock: 1.7845GHz coreCount: 10 deviceMemorySize: 6.00GiB deviceMemoryBandwidth: 178.99GiB/s
+2021-07-25 18:57:29.508414: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1871] Adding visible gpu devices: 0
+2021-07-25 18:57:30.168430: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1258] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-07-25 18:57:30.168706: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1264]      0
+2021-07-25 18:57:30.170520: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1277] 0:   N
+2021-07-25 18:57:30.171145: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1418] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 4624 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+  0%|                                                                                   | 0/5000 [00:00<?, ?episodes/s]2021-07-25 18:57:30.992706: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+2021-07-25 18:57:31.067634: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cudnn64_8.dll
+2021-07-25 18:57:31.562130: I tensorflow/stream_executor/cuda/cuda_dnn.cc:359] Loaded cuDNN version 8100
+2021-07-25 18:57:31.663951: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cublas64_11.dll
+2021-07-25 18:57:32.069958: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library cublasLt64_11.dll
+ Epoch: 1. Mean Return: -11.00. Mean Length: 50.00
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+  0%|                                                                        | 1/5000 [00:08<12:09:26,  8.76s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 2, vocab: 11-or
+
+SUCCESS_REWARD @ 3:
+
+Orig seed string:
+( ' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 ; # 1=1 <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 6, vocab: 8-1=1
+
+SUCCESS_REWARD @ 4:
+
+Orig seed string:
+( ' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 ; # 1=1 <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 ; # 1=1 ( <EOS> <EOS> <EOS>
+OP: None, pos: 7, vocab: 3-(
+ Epoch: 2. Mean Return: 18.60. Mean Length: 50.00
+  0%|                                                                         | 2/5000 [00:11<7:38:40,  5.51s/episodes] Epoch: 3. Mean Return: -10.10. Mean Length: 50.00
+  0%|                                                                         | 3/5000 [00:18<8:04:46,  5.82s/episodes] Epoch: 4. Mean Return: -12.70. Mean Length: 50.00
+  0%|                                                                         | 4/5000 [00:22<7:21:13,  5.30s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' # ) <EOS>
+Last seed string:
+( ' or ' 1'= ' 1 ' # ) <EOS>
+Curr seed string:
+( ' or ' 1'= ' 1 ' # 1'= <EOS>
+OP: None, pos: 9, vocab: 7-1'=
+ Epoch: 5. Mean Return: -1.50. Mean Length: 50.00
+  0%|                                                                         | 5/5000 [00:26<6:34:34,  4.74s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 # 1=1 <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 4, vocab: 8-1=1
+ Epoch: 6. Mean Return: -0.50. Mean Length: 50.00
+  0%|                                                                         | 6/5000 [00:30<6:04:28,  4.38s/episodes] Epoch: 7. Mean Return: -11.30. Mean Length: 50.00
+  0%|1                                                                        | 7/5000 [00:34<6:07:48,  4.42s/episodes] Epoch: 8. Mean Return: -11.00. Mean Length: 50.00
+  0%|1                                                                        | 8/5000 [00:38<6:06:27,  4.40s/episodes] Epoch: 9. Mean Return: -11.00. Mean Length: 50.00
+  0%|1                                                                        | 9/5000 [00:42<5:32:19,  4.00s/episodes] Epoch: 10. Mean Return: -11.50. Mean Length: 50.00
+  0%|1                                                                       | 10/5000 [00:48<6:21:49,  4.59s/episodes] Epoch: 11. Mean Return: -10.30. Mean Length: 50.00
+  0%|1                                                                       | 11/5000 [00:51<5:44:12,  4.14s/episodes] Epoch: 12. Mean Return: -10.30. Mean Length: 50.00
+  0%|1                                                                       | 12/5000 [00:55<5:46:06,  4.16s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 ; -- <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 ; -- <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 ; -- <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 8, vocab: 0-<EOS>
+ Epoch: 13. Mean Return: -0.20. Mean Length: 50.00
+  0%|1                                                                       | 13/5000 [01:00<6:00:04,  4.33s/episodes] Epoch: 14. Mean Return: -9.70. Mean Length: 50.00
+  0%|2                                                                       | 14/5000 [01:05<6:31:24,  4.71s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 10, vocab: 9-;
+ Epoch: 15. Mean Return: 0.20. Mean Length: 50.00
+  0%|2                                                                       | 15/5000 [01:10<6:30:40,  4.70s/episodes] Epoch: 16. Mean Return: -9.70. Mean Length: 50.00
+  0%|2                                                                       | 16/5000 [01:14<6:24:59,  4.63s/episodes] Epoch: 17. Mean Return: -12.20. Mean Length: 50.00
+  0%|2                                                                       | 17/5000 [01:19<6:15:18,  4.52s/episodes] Epoch: 18. Mean Return: -10.70. Mean Length: 50.00
+  0%|2                                                                       | 18/5000 [01:23<6:22:00,  4.60s/episodes] Epoch: 19. Mean Return: -9.10. Mean Length: 50.00
+  0%|2                                                                       | 19/5000 [01:29<6:57:37,  5.03s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or ' 1'= ' 1 ' -- <EOS> <EOS> <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' -- <EOS> <EOS> <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' -- ' <EOS> <EOS>
+OP: None, pos: 8, vocab: 2-'
+
+SUCCESS_REWARD @ 3:
+
+Orig seed string:
+' or ' 1'= ' 1 ' -- <EOS> <EOS> <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' -- <EOS> <EOS> <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' -- 1 <EOS> <EOS>
+OP: None, pos: 8, vocab: 6-1
+ Epoch: 20. Mean Return: 10.00. Mean Length: 50.00
+  0%|2                                                                       | 20/5000 [01:35<7:00:35,  5.07s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ; <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 5, vocab: 9-;
+ Epoch: 21. Mean Return: 1.00. Mean Length: 50.00
+  0%|3                                                                       | 21/5000 [01:40<7:04:00,  5.11s/episodes] Epoch: 22. Mean Return: -10.30. Mean Length: 50.00
+  0%|3                                                                       | 22/5000 [01:44<6:43:33,  4.86s/episodes] Epoch: 23. Mean Return: -9.10. Mean Length: 50.00
+  0%|3                                                                       | 23/5000 [01:50<7:01:04,  5.08s/episodes] Epoch: 24. Mean Return: -9.50. Mean Length: 50.00
+  0%|3                                                                       | 24/5000 [01:54<6:44:59,  4.88s/episodes] Epoch: 25. Mean Return: -9.70. Mean Length: 50.00
+  0%|3                                                                       | 25/5000 [01:58<6:21:56,  4.61s/episodes] Epoch: 26. Mean Return: -9.60. Mean Length: 50.00
+  1%|3                                                                       | 26/5000 [02:03<6:39:40,  4.82s/episodes] Epoch: 27. Mean Return: -8.90. Mean Length: 50.00
+  1%|3                                                                       | 27/5000 [02:09<6:55:13,  5.01s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or ' 1'= ' 1 ' -- ) <EOS> <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' -- ) <EOS> <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' -- ) ; <EOS>
+OP: None, pos: 9, vocab: 9-;
+ Epoch: 28. Mean Return: 1.10. Mean Length: 50.00
+  1%|4                                                                       | 28/5000 [02:14<7:01:28,  5.09s/episodes] Epoch: 29. Mean Return: -9.10. Mean Length: 50.00
+  1%|4                                                                       | 29/5000 [02:19<6:56:46,  5.03s/episodes] Epoch: 30. Mean Return: -10.30. Mean Length: 50.00
+  1%|4                                                                       | 30/5000 [02:24<6:46:41,  4.91s/episodes] Epoch: 31. Mean Return: -9.90. Mean Length: 50.00
+  1%|4                                                                       | 31/5000 [02:28<6:41:11,  4.84s/episodes] Epoch: 32. Mean Return: -10.10. Mean Length: 50.00
+  1%|4                                                                       | 32/5000 [02:33<6:40:19,  4.83s/episodes] Epoch: 33. Mean Return: -8.60. Mean Length: 50.00
+  1%|4                                                                       | 33/5000 [02:39<6:57:43,  5.05s/episodes] Epoch: 34. Mean Return: -8.70. Mean Length: 50.00
+  1%|4                                                                       | 34/5000 [02:44<7:11:31,  5.21s/episodes] Epoch: 35. Mean Return: -9.00. Mean Length: 50.00
+  1%|5                                                                       | 35/5000 [02:49<7:06:42,  5.16s/episodes] Epoch: 36. Mean Return: -9.10. Mean Length: 50.00
+  1%|5                                                                       | 36/5000 [02:55<7:16:36,  5.28s/episodes] Epoch: 37. Mean Return: -9.30. Mean Length: 50.00
+  1%|5                                                                       | 37/5000 [02:59<6:57:36,  5.05s/episodes] Epoch: 38. Mean Return: -8.30. Mean Length: 50.00
+  1%|5                                                                       | 38/5000 [03:05<7:18:46,  5.31s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 9, vocab: 6-1
+
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 ; # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 ; # ( <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 5, vocab: 3-(
+ Epoch: 39. Mean Return: 10.90. Mean Length: 50.00
+  1%|5                                                                       | 39/5000 [03:10<7:09:45,  5.20s/episodes] Epoch: 40. Mean Return: -8.70. Mean Length: 50.00
+  1%|5                                                                       | 40/5000 [03:16<7:23:59,  5.37s/episodes] Epoch: 41. Mean Return: -8.40. Mean Length: 50.00
+  1%|5                                                                       | 41/5000 [03:22<7:36:57,  5.53s/episodes] Epoch: 42. Mean Return: -8.60. Mean Length: 50.00
+  1%|6                                                                       | 42/5000 [03:28<7:54:36,  5.74s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- or <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 5, vocab: 11-or
+ Epoch: 43. Mean Return: 0.10. Mean Length: 50.00
+  1%|6                                                                       | 43/5000 [03:33<7:37:51,  5.54s/episodes] Epoch: 44. Mean Return: -8.50. Mean Length: 50.00
+  1%|6                                                                       | 44/5000 [03:40<8:20:15,  6.06s/episodes] Epoch: 45. Mean Return: -8.30. Mean Length: 50.00
+  1%|6                                                                       | 45/5000 [03:47<8:31:27,  6.19s/episodes] Epoch: 46. Mean Return: -7.20. Mean Length: 50.00
+  1%|6                                                                       | 46/5000 [03:55<9:09:06,  6.65s/episodes] Epoch: 47. Mean Return: -7.60. Mean Length: 50.00
+  1%|6                                                                       | 47/5000 [04:02<9:21:10,  6.80s/episodes] Epoch: 48. Mean Return: -8.30. Mean Length: 50.00
+  1%|6                                                                       | 48/5000 [04:09<9:22:17,  6.81s/episodes] Epoch: 49. Mean Return: -8.00. Mean Length: 50.00
+  1%|7                                                                       | 49/5000 [04:15<9:13:36,  6.71s/episodes] Epoch: 50. Mean Return: -7.30. Mean Length: 50.00
+  1%|7                                                                       | 50/5000 [04:23<9:31:02,  6.92s/episodes] Epoch: 51. Mean Return: -7.60. Mean Length: 50.00
+  1%|7                                                                       | 51/5000 [04:30<9:42:45,  7.07s/episodes] Epoch: 52. Mean Return: -7.00. Mean Length: 50.00
+  1%|7                                                                      | 52/5000 [04:38<10:01:42,  7.30s/episodes] Epoch: 53. Mean Return: -8.10. Mean Length: 50.00
+  1%|7                                                                       | 53/5000 [04:44<9:31:06,  6.93s/episodes] Epoch: 54. Mean Return: -7.00. Mean Length: 50.00
+  1%|7                                                                       | 54/5000 [04:52<9:57:11,  7.24s/episodes] Epoch: 55. Mean Return: -7.40. Mean Length: 50.00
+  1%|7                                                                       | 55/5000 [04:59<9:52:31,  7.19s/episodes] Epoch: 56. Mean Return: -7.00. Mean Length: 50.00
+  1%|7                                                                      | 56/5000 [05:07<10:08:54,  7.39s/episodes]
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' -- ) <EOS>
+Last seed string:
+( ) or ' 1'= ' 1 ' -- ) <EOS>
+Curr seed string:
+( ' or ' 1'= ' 1 ' -- ) <EOS>
+OP: None, pos: 1, vocab: 2-'
+
+SUCCESS_REWARD @ 4:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' -- ) <EOS>
+Last seed string:
+( ) or ' 1'= ' 1 ' -- ) <EOS>
+Curr seed string:
+( ' or ' 1'= ' 1 ' -- ) <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 57. Mean Return: 12.90. Mean Length: 50.00
+  1%|8                                                                      | 57/5000 [05:14<10:15:28,  7.47s/episodes]
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ) or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 58. Mean Return: 3.00. Mean Length: 50.00
+  1%|8                                                                      | 58/5000 [05:23<10:36:21,  7.73s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 59. Mean Return: 2.90. Mean Length: 50.00
+  1%|8                                                                      | 59/5000 [05:30<10:29:18,  7.64s/episodes] Epoch: 60. Mean Return: -7.20. Mean Length: 50.00
+  1%|8                                                                      | 60/5000 [05:38<10:39:39,  7.77s/episodes] Epoch: 61. Mean Return: -9.40. Mean Length: 50.00
+  1%|8                                                                      | 61/5000 [05:45<10:11:36,  7.43s/episodes] Epoch: 62. Mean Return: -7.50. Mean Length: 50.00
+  1%|8                                                                      | 62/5000 [05:52<10:02:11,  7.32s/episodes] Epoch: 63. Mean Return: -7.00. Mean Length: 50.00
+  1%|8                                                                      | 63/5000 [06:00<10:21:43,  7.56s/episodes] Epoch: 64. Mean Return: -8.00. Mean Length: 50.00
+  1%|9                                                                       | 64/5000 [06:07<9:55:25,  7.24s/episodes] Epoch: 65. Mean Return: -6.70. Mean Length: 50.00
+  1%|9                                                                      | 65/5000 [06:15<10:17:01,  7.50s/episodes] Epoch: 66. Mean Return: -8.10. Mean Length: 50.00
+  1%|9                                                                       | 66/5000 [06:21<9:52:48,  7.21s/episodes] Epoch: 67. Mean Return: -8.50. Mean Length: 50.00
+  1%|9                                                                       | 67/5000 [06:28<9:34:27,  6.99s/episodes] Epoch: 68. Mean Return: -6.60. Mean Length: 50.00
+  1%|9                                                                      | 68/5000 [06:36<10:13:31,  7.46s/episodes] Epoch: 69. Mean Return: -6.80. Mean Length: 50.00
+  1%|9                                                                      | 69/5000 [06:44<10:27:59,  7.64s/episodes] Epoch: 70. Mean Return: -6.90. Mean Length: 50.00
+  1%|9                                                                      | 70/5000 [06:52<10:29:16,  7.66s/episodes] Epoch: 71. Mean Return: -7.30. Mean Length: 50.00
+  1%|#                                                                      | 71/5000 [06:59<10:22:42,  7.58s/episodes] Epoch: 72. Mean Return: -7.20. Mean Length: 50.00
+  1%|#                                                                      | 72/5000 [07:07<10:26:22,  7.63s/episodes] Epoch: 73. Mean Return: -7.20. Mean Length: 50.00
+  1%|#                                                                      | 73/5000 [07:14<10:20:55,  7.56s/episodes] Epoch: 74. Mean Return: -6.90. Mean Length: 50.00
+  1%|#                                                                      | 74/5000 [07:22<10:29:25,  7.67s/episodes] Epoch: 75. Mean Return: -6.60. Mean Length: 50.00
+  2%|#                                                                      | 75/5000 [07:31<10:45:01,  7.86s/episodes] Epoch: 76. Mean Return: -6.80. Mean Length: 50.00
+  2%|#                                                                      | 76/5000 [07:39<10:49:52,  7.92s/episodes] Epoch: 77. Mean Return: -6.80. Mean Length: 50.00
+  2%|#                                                                      | 77/5000 [07:47<11:00:59,  8.06s/episodes] Epoch: 78. Mean Return: -7.20. Mean Length: 50.00
+  2%|#1                                                                     | 78/5000 [07:55<10:49:06,  7.91s/episodes] Epoch: 79. Mean Return: -7.80. Mean Length: 50.00
+  2%|#1                                                                     | 79/5000 [08:02<10:34:40,  7.74s/episodes] Epoch: 80. Mean Return: -7.80. Mean Length: 50.00
+  2%|#1                                                                     | 80/5000 [08:09<10:05:34,  7.39s/episodes] Epoch: 81. Mean Return: -7.70. Mean Length: 50.00
+  2%|#1                                                                      | 81/5000 [08:15<9:42:30,  7.11s/episodes] Epoch: 82. Mean Return: -7.20. Mean Length: 50.00
+  2%|#1                                                                      | 82/5000 [08:22<9:44:58,  7.14s/episodes] Epoch: 83. Mean Return: -6.80. Mean Length: 50.00
+  2%|#1                                                                      | 83/5000 [08:30<9:59:24,  7.31s/episodes] Epoch: 84. Mean Return: -6.50. Mean Length: 50.00
+  2%|#1                                                                     | 84/5000 [08:38<10:25:47,  7.64s/episodes] Epoch: 85. Mean Return: -7.40. Mean Length: 50.00
+  2%|#2                                                                     | 85/5000 [08:45<10:10:06,  7.45s/episodes] Epoch: 86. Mean Return: -7.10. Mean Length: 50.00
+  2%|#2                                                                     | 86/5000 [08:53<10:03:01,  7.36s/episodes] Epoch: 87. Mean Return: -6.50. Mean Length: 50.00
+  2%|#2                                                                     | 87/5000 [09:01<10:28:47,  7.68s/episodes] Epoch: 88. Mean Return: -6.40. Mean Length: 50.00
+  2%|#2                                                                     | 88/5000 [09:09<10:45:54,  7.89s/episodes] Epoch: 89. Mean Return: -7.30. Mean Length: 50.00
+  2%|#2                                                                     | 89/5000 [09:17<10:36:47,  7.78s/episodes] Epoch: 90. Mean Return: -7.30. Mean Length: 50.00
+  2%|#2                                                                     | 90/5000 [09:24<10:18:03,  7.55s/episodes]
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' -- ) <EOS>
+Last seed string:
+( ( or ' 1'= ' 1 ' -- ) <EOS>
+Curr seed string:
+( ' or ' 1'= ' 1 ' -- ) <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 91. Mean Return: 3.10. Mean Length: 50.00
+  2%|#2                                                                     | 91/5000 [09:32<10:27:46,  7.67s/episodes] Epoch: 92. Mean Return: -7.40. Mean Length: 50.00
+  2%|#3                                                                     | 92/5000 [09:39<10:05:47,  7.41s/episodes] Epoch: 93. Mean Return: -6.90. Mean Length: 50.00
+  2%|#3                                                                     | 93/5000 [09:47<10:17:48,  7.55s/episodes] Epoch: 94. Mean Return: -9.60. Mean Length: 50.00
+  2%|#3                                                                      | 94/5000 [09:50<8:45:12,  6.42s/episodes] Epoch: 95. Mean Return: -6.60. Mean Length: 50.00
+  2%|#3                                                                      | 95/5000 [09:59<9:30:23,  6.98s/episodes] Epoch: 96. Mean Return: -11.70. Mean Length: 50.00
+  2%|#3                                                                      | 96/5000 [10:02<8:04:37,  5.93s/episodes] Epoch: 97. Mean Return: -7.50. Mean Length: 50.00
+  2%|#3                                                                      | 97/5000 [10:09<8:28:25,  6.22s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or ' 1'= ' 1 ' -- ) <EOS> <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' -- ) <EOS> <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' -- ' <EOS> <EOS>
+OP: None, pos: 8, vocab: 2-'
+ Epoch: 98. Mean Return: 3.60. Mean Length: 50.00
+  2%|#4                                                                      | 98/5000 [10:18<9:24:32,  6.91s/episodes] Epoch: 99. Mean Return: -7.00. Mean Length: 50.00
+  2%|#4                                                                      | 99/5000 [10:26<9:51:23,  7.24s/episodes] Epoch: 100. Mean Return: -7.00. Mean Length: 50.00
+  2%|#4                                                                    | 100/5000 [10:33<10:01:25,  7.36s/episodes] Epoch: 101. Mean Return: -7.20. Mean Length: 50.00
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+  2%|#4                                                                    | 101/5000 [10:41<10:04:14,  7.40s/episodes] Epoch: 102. Mean Return: -7.40. Mean Length: 50.00
+  2%|#4                                                                     | 102/5000 [10:48<9:52:37,  7.26s/episodes] Epoch: 103. Mean Return: -11.80. Mean Length: 50.00
+  2%|#4                                                                     | 103/5000 [10:52<8:34:58,  6.31s/episodes] Epoch: 104. Mean Return: -6.60. Mean Length: 50.00
+  2%|#4                                                                     | 104/5000 [11:00<9:20:53,  6.87s/episodes] Epoch: 105. Mean Return: -7.10. Mean Length: 50.00
+  2%|#4                                                                     | 105/5000 [11:08<9:45:29,  7.18s/episodes] Epoch: 106. Mean Return: -8.40. Mean Length: 50.00
+  2%|#5                                                                     | 106/5000 [11:14<9:24:08,  6.92s/episodes] Epoch: 107. Mean Return: -7.10. Mean Length: 50.00
+  2%|#5                                                                     | 107/5000 [11:22<9:48:19,  7.21s/episodes] Epoch: 108. Mean Return: -6.50. Mean Length: 50.00
+  2%|#5                                                                    | 108/5000 [11:30<10:13:58,  7.53s/episodes] Epoch: 109. Mean Return: -7.50. Mean Length: 50.00
+  2%|#5                                                                    | 109/5000 [11:38<10:09:51,  7.48s/episodes] Epoch: 110. Mean Return: -7.10. Mean Length: 50.00
+  2%|#5                                                                    | 110/5000 [11:45<10:08:34,  7.47s/episodes] Epoch: 111. Mean Return: -6.20. Mean Length: 50.00
+  2%|#5                                                                    | 111/5000 [11:54<10:33:31,  7.77s/episodes] Epoch: 112. Mean Return: -6.90. Mean Length: 50.00
+  2%|#5                                                                    | 112/5000 [12:01<10:24:42,  7.67s/episodes] Epoch: 113. Mean Return: -6.50. Mean Length: 50.00
+  2%|#5                                                                    | 113/5000 [12:09<10:40:11,  7.86s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 8, vocab: 2-'
+ Epoch: 114. Mean Return: 4.10. Mean Length: 50.00
+  2%|#5                                                                    | 114/5000 [12:18<11:05:49,  8.18s/episodes] Epoch: 115. Mean Return: -7.00. Mean Length: 50.00
+  2%|#6                                                                    | 115/5000 [12:26<11:08:20,  8.21s/episodes] Epoch: 116. Mean Return: -7.10. Mean Length: 50.00
+  2%|#6                                                                    | 116/5000 [12:34<10:46:53,  7.95s/episodes] Epoch: 117. Mean Return: -7.90. Mean Length: 50.00
+  2%|#6                                                                    | 117/5000 [12:40<10:08:15,  7.47s/episodes] Epoch: 118. Mean Return: -6.80. Mean Length: 50.00
+  2%|#6                                                                    | 118/5000 [12:48<10:14:46,  7.56s/episodes] Epoch: 119. Mean Return: -6.20. Mean Length: 50.00
+  2%|#6                                                                    | 119/5000 [12:57<10:51:44,  8.01s/episodes] Epoch: 120. Mean Return: -6.40. Mean Length: 50.00
+  2%|#6                                                                    | 120/5000 [13:05<10:52:18,  8.02s/episodes] Epoch: 121. Mean Return: -6.60. Mean Length: 50.00
+  2%|#6                                                                    | 121/5000 [13:13<10:50:15,  8.00s/episodes] Epoch: 122. Mean Return: -6.70. Mean Length: 50.00
+  2%|#7                                                                    | 122/5000 [13:21<10:41:36,  7.89s/episodes] Epoch: 123. Mean Return: -5.50. Mean Length: 50.00
+  2%|#7                                                                    | 123/5000 [13:30<11:26:27,  8.45s/episodes] Epoch: 124. Mean Return: -6.30. Mean Length: 50.00
+  2%|#7                                                                    | 124/5000 [13:39<11:28:23,  8.47s/episodes] Epoch: 125. Mean Return: -6.40. Mean Length: 50.00
+  2%|#7                                                                    | 125/5000 [13:47<11:22:35,  8.40s/episodes] Epoch: 126. Mean Return: -7.30. Mean Length: 50.00
+  3%|#7                                                                    | 126/5000 [13:55<11:02:00,  8.15s/episodes] Epoch: 127. Mean Return: -6.90. Mean Length: 50.00
+  3%|#7                                                                    | 127/5000 [14:02<10:46:48,  7.96s/episodes]
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ( or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+
+SUCCESS_REWARD @ 7:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ) or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 128. Mean Return: 13.40. Mean Length: 50.00
+  3%|#7                                                                    | 128/5000 [14:11<10:59:46,  8.13s/episodes] Epoch: 129. Mean Return: -5.60. Mean Length: 50.00
+  3%|#8                                                                    | 129/5000 [14:20<11:29:45,  8.50s/episodes] Epoch: 130. Mean Return: -6.80. Mean Length: 50.00
+  3%|#8                                                                    | 130/5000 [14:28<11:04:00,  8.18s/episodes] Epoch: 131. Mean Return: -6.40. Mean Length: 50.00
+  3%|#8                                                                    | 131/5000 [14:36<11:13:19,  8.30s/episodes] Epoch: 132. Mean Return: -8.00. Mean Length: 50.00
+  3%|#8                                                                    | 132/5000 [14:43<10:47:28,  7.98s/episodes] Epoch: 133. Mean Return: -6.20. Mean Length: 50.00
+  3%|#8                                                                    | 133/5000 [14:52<11:12:25,  8.29s/episodes] Epoch: 134. Mean Return: -8.40. Mean Length: 50.00
+  3%|#8                                                                    | 134/5000 [15:00<10:45:08,  7.95s/episodes] Epoch: 135. Mean Return: -5.50. Mean Length: 50.00
+  3%|#8                                                                    | 135/5000 [15:09<11:20:43,  8.40s/episodes] Epoch: 136. Mean Return: -6.90. Mean Length: 50.00
+  3%|#9                                                                    | 136/5000 [15:17<11:02:12,  8.17s/episodes] Epoch: 137. Mean Return: -6.30. Mean Length: 50.00
+  3%|#9                                                                    | 137/5000 [15:25<11:13:13,  8.31s/episodes] Epoch: 138. Mean Return: -7.40. Mean Length: 50.00
+  3%|#9                                                                    | 138/5000 [15:33<10:55:40,  8.09s/episodes] Epoch: 139. Mean Return: -6.70. Mean Length: 50.00
+  3%|#9                                                                    | 139/5000 [15:41<10:52:13,  8.05s/episodes] Epoch: 140. Mean Return: -8.50. Mean Length: 50.00
+  3%|#9                                                                    | 140/5000 [15:48<10:29:48,  7.78s/episodes] Epoch: 141. Mean Return: -6.30. Mean Length: 50.00
+  3%|#9                                                                    | 141/5000 [15:57<10:50:53,  8.04s/episodes] Epoch: 142. Mean Return: -6.70. Mean Length: 50.00
+  3%|#9                                                                    | 142/5000 [16:04<10:48:56,  8.01s/episodes] Epoch: 143. Mean Return: -6.40. Mean Length: 50.00
+  3%|##                                                                    | 143/5000 [16:13<10:59:50,  8.15s/episodes] Epoch: 144. Mean Return: -6.00. Mean Length: 50.00
+  3%|##                                                                    | 144/5000 [16:22<11:22:33,  8.43s/episodes] Epoch: 145. Mean Return: -6.30. Mean Length: 50.00
+  3%|##                                                                    | 145/5000 [16:31<11:29:03,  8.52s/episodes] Epoch: 146. Mean Return: -5.90. Mean Length: 50.00
+  3%|##                                                                    | 146/5000 [16:40<11:44:11,  8.70s/episodes] Epoch: 147. Mean Return: -6.40. Mean Length: 50.00
+  3%|##                                                                    | 147/5000 [16:48<11:27:04,  8.49s/episodes] Epoch: 148. Mean Return: -7.20. Mean Length: 50.00
+  3%|##                                                                    | 148/5000 [16:55<11:02:46,  8.20s/episodes] Epoch: 149. Mean Return: -6.70. Mean Length: 50.00
+  3%|##                                                                    | 149/5000 [17:03<10:52:17,  8.07s/episodes] Epoch: 150. Mean Return: -6.00. Mean Length: 50.00
+  3%|##1                                                                   | 150/5000 [17:12<11:10:45,  8.30s/episodes] Epoch: 151. Mean Return: -7.00. Mean Length: 50.00
+  3%|##1                                                                   | 151/5000 [17:20<11:08:35,  8.27s/episodes] Epoch: 152. Mean Return: -6.60. Mean Length: 50.00
+  3%|##1                                                                   | 152/5000 [17:28<11:02:30,  8.20s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' and ' 1'= ' 1 ' ; -- <EOS> <EOS>
+Last seed string:
+' and ' 1'= ' 1 ' ; -- <EOS> <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; -- <EOS> <EOS>
+OP: None, pos: 1, vocab: 11-or
+ Epoch: 153. Mean Return: -2.60. Mean Length: 50.00
+  3%|##1                                                                    | 153/5000 [17:32<9:09:10,  6.80s/episodes] Epoch: 154. Mean Return: -6.90. Mean Length: 50.00
+  3%|##1                                                                    | 154/5000 [17:40<9:52:46,  7.34s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 7, vocab: 8-1=1
+ Epoch: 155. Mean Return: 3.60. Mean Length: 50.00
+  3%|##1                                                                   | 155/5000 [17:49<10:19:45,  7.68s/episodes] Epoch: 156. Mean Return: -6.10. Mean Length: 50.00
+  3%|##1                                                                   | 156/5000 [17:58<10:47:35,  8.02s/episodes] Epoch: 157. Mean Return: -6.00. Mean Length: 50.00
+  3%|##1                                                                   | 157/5000 [18:06<11:03:18,  8.22s/episodes] Epoch: 158. Mean Return: -5.80. Mean Length: 50.00
+  3%|##2                                                                   | 158/5000 [18:16<11:25:37,  8.50s/episodes] Epoch: 159. Mean Return: -7.60. Mean Length: 50.00
+  3%|##2                                                                   | 159/5000 [18:22<10:47:59,  8.03s/episodes] Epoch: 160. Mean Return: -6.10. Mean Length: 50.00
+  3%|##2                                                                   | 160/5000 [18:31<11:08:18,  8.28s/episodes] Epoch: 161. Mean Return: -5.90. Mean Length: 50.00
+  3%|##2                                                                   | 161/5000 [18:40<11:18:57,  8.42s/episodes] Epoch: 162. Mean Return: -8.90. Mean Length: 50.00
+  3%|##2                                                                   | 162/5000 [18:46<10:22:27,  7.72s/episodes] Epoch: 163. Mean Return: -6.10. Mean Length: 50.00
+  3%|##2                                                                   | 163/5000 [18:55<10:48:11,  8.04s/episodes] Epoch: 164. Mean Return: -5.90. Mean Length: 50.00
+  3%|##2                                                                   | 164/5000 [19:04<11:22:11,  8.46s/episodes] Epoch: 165. Mean Return: -6.10. Mean Length: 50.00
+  3%|##3                                                                   | 165/5000 [19:13<11:27:55,  8.54s/episodes] Epoch: 166. Mean Return: -6.50. Mean Length: 50.00
+  3%|##3                                                                   | 166/5000 [19:21<11:17:52,  8.41s/episodes] Epoch: 167. Mean Return: -6.60. Mean Length: 50.00
+  3%|##3                                                                   | 167/5000 [19:30<11:16:35,  8.40s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 ; # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 ; ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 4, vocab: 4-)
+ Epoch: 168. Mean Return: 3.30. Mean Length: 50.00
+  3%|##3                                                                   | 168/5000 [19:38<11:13:24,  8.36s/episodes] Epoch: 169. Mean Return: -5.90. Mean Length: 50.00
+  3%|##3                                                                   | 169/5000 [19:47<11:23:27,  8.49s/episodes] Epoch: 170. Mean Return: -6.00. Mean Length: 50.00
+  3%|##3                                                                   | 170/5000 [19:56<11:33:41,  8.62s/episodes] Epoch: 171. Mean Return: -8.70. Mean Length: 50.00
+  3%|##3                                                                   | 171/5000 [20:02<10:31:30,  7.85s/episodes] Epoch: 172. Mean Return: -6.40. Mean Length: 50.00
+  3%|##4                                                                   | 172/5000 [20:10<10:53:18,  8.12s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 7, vocab: 7-1'=
+ Epoch: 173. Mean Return: 4.20. Mean Length: 50.00
+  3%|##4                                                                   | 173/5000 [20:19<11:13:10,  8.37s/episodes] Epoch: 174. Mean Return: -6.30. Mean Length: 50.00
+  3%|##4                                                                   | 174/5000 [20:27<11:07:59,  8.30s/episodes] Epoch: 175. Mean Return: -6.80. Mean Length: 50.00
+  4%|##4                                                                   | 175/5000 [20:36<11:04:10,  8.26s/episodes]
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' # <EOS> <EOS>
+Last seed string:
+( ( or ' 1'= ' 1 ' # <EOS> <EOS>
+Curr seed string:
+( ' or ' 1'= ' 1 ' # <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 176. Mean Return: 3.40. Mean Length: 50.00
+  4%|##4                                                                   | 176/5000 [20:44<11:04:06,  8.26s/episodes] Epoch: 177. Mean Return: -6.40. Mean Length: 50.00
+  4%|##4                                                                   | 177/5000 [20:52<11:08:11,  8.31s/episodes] Epoch: 178. Mean Return: -6.10. Mean Length: 50.00
+  4%|##4                                                                   | 178/5000 [21:01<11:15:59,  8.41s/episodes] Epoch: 179. Mean Return: -6.40. Mean Length: 50.00
+  4%|##5                                                                   | 179/5000 [21:10<11:25:36,  8.53s/episodes] Epoch: 180. Mean Return: -6.50. Mean Length: 50.00
+  4%|##5                                                                   | 180/5000 [21:18<11:23:25,  8.51s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' # ) <EOS>
+Last seed string:
+( ' or ' 1'= ' 1 ' # ) <EOS>
+Curr seed string:
+# ' or ' 1'= ' 1 ' # ) <EOS>
+OP: None, pos: 0, vocab: 1-#
+ Epoch: 181. Mean Return: 1.30. Mean Length: 50.00
+  4%|##5                                                                   | 181/5000 [21:25<10:42:02,  7.99s/episodes] Epoch: 182. Mean Return: -6.00. Mean Length: 50.00
+  4%|##5                                                                   | 182/5000 [21:34<11:09:14,  8.33s/episodes] Epoch: 183. Mean Return: -5.80. Mean Length: 50.00
+  4%|##5                                                                   | 183/5000 [21:43<11:28:23,  8.57s/episodes] Epoch: 184. Mean Return: -6.80. Mean Length: 50.00
+  4%|##5                                                                   | 184/5000 [21:51<11:17:24,  8.44s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 185. Mean Return: 3.90. Mean Length: 50.00
+  4%|##5                                                                   | 185/5000 [22:00<11:21:27,  8.49s/episodes] Epoch: 186. Mean Return: -6.10. Mean Length: 50.00
+  4%|##6                                                                   | 186/5000 [22:09<11:31:52,  8.62s/episodes] Epoch: 187. Mean Return: -5.80. Mean Length: 50.00
+  4%|##6                                                                   | 187/5000 [22:18<11:38:31,  8.71s/episodes]
+SUCCESS_REWARD @ 4:
+
+Orig seed string:
+( ' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ( or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 188. Mean Return: 1.40. Mean Length: 50.00
+  4%|##6                                                                   | 188/5000 [22:25<11:00:20,  8.23s/episodes] Epoch: 189. Mean Return: -6.90. Mean Length: 50.00
+  4%|##6                                                                   | 189/5000 [22:33<11:02:46,  8.27s/episodes] Epoch: 190. Mean Return: -6.50. Mean Length: 50.00
+  4%|##6                                                                   | 190/5000 [22:41<10:58:55,  8.22s/episodes] Epoch: 191. Mean Return: -8.90. Mean Length: 50.00
+  4%|##6                                                                   | 191/5000 [22:49<10:32:11,  7.89s/episodes] Epoch: 192. Mean Return: -7.30. Mean Length: 50.00
+  4%|##6                                                                   | 192/5000 [22:56<10:15:35,  7.68s/episodes] Epoch: 193. Mean Return: -7.00. Mean Length: 50.00
+  4%|##7                                                                   | 193/5000 [23:04<10:25:56,  7.81s/episodes] Epoch: 194. Mean Return: -6.30. Mean Length: 50.00
+  4%|##7                                                                   | 194/5000 [23:12<10:41:27,  8.01s/episodes] Epoch: 195. Mean Return: -6.60. Mean Length: 50.00
+  4%|##7                                                                   | 195/5000 [23:21<10:59:25,  8.23s/episodes] Epoch: 196. Mean Return: -6.40. Mean Length: 50.00
+  4%|##7                                                                   | 196/5000 [23:30<11:03:55,  8.29s/episodes] Epoch: 197. Mean Return: -6.20. Mean Length: 50.00
+  4%|##7                                                                   | 197/5000 [23:38<11:12:23,  8.40s/episodes] Epoch: 198. Mean Return: -8.10. Mean Length: 50.00
+  4%|##7                                                                   | 198/5000 [23:46<10:47:38,  8.09s/episodes] Epoch: 199. Mean Return: -5.60. Mean Length: 50.00
+  4%|##7                                                                   | 199/5000 [23:55<11:10:53,  8.38s/episodes] Epoch: 200. Mean Return: -6.30. Mean Length: 50.00
+  4%|##8                                                                   | 200/5000 [24:03<11:16:53,  8.46s/episodes] Epoch: 201. Mean Return: -6.00. Mean Length: 50.00
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+  4%|##8                                                                   | 201/5000 [24:12<11:22:55,  8.54s/episodes] Epoch: 202. Mean Return: -5.50. Mean Length: 50.00
+  4%|##8                                                                   | 202/5000 [24:21<11:45:35,  8.82s/episodes] Epoch: 203. Mean Return: -6.00. Mean Length: 50.00
+  4%|##8                                                                   | 203/5000 [24:30<11:45:53,  8.83s/episodes] Epoch: 204. Mean Return: -6.20. Mean Length: 50.00
+  4%|##8                                                                   | 204/5000 [24:39<11:39:39,  8.75s/episodes] Epoch: 205. Mean Return: -6.20. Mean Length: 50.00
+  4%|##8                                                                   | 205/5000 [24:47<11:34:36,  8.69s/episodes] Epoch: 206. Mean Return: -7.00. Mean Length: 50.00
+  4%|##8                                                                   | 206/5000 [24:55<11:15:35,  8.46s/episodes] Epoch: 207. Mean Return: -5.80. Mean Length: 50.00
+  4%|##8                                                                   | 207/5000 [25:04<11:25:26,  8.58s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 8, vocab: 11-or
+ Epoch: 208. Mean Return: 4.10. Mean Length: 50.00
+  4%|##9                                                                   | 208/5000 [25:13<11:41:54,  8.79s/episodes] Epoch: 209. Mean Return: -6.60. Mean Length: 50.00
+  4%|##9                                                                   | 209/5000 [25:21<11:19:27,  8.51s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 8, vocab: 4-)
+ Epoch: 210. Mean Return: 3.70. Mean Length: 50.00
+  4%|##9                                                                   | 210/5000 [25:30<11:13:36,  8.44s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or ' 1'= ' 1 ' # ) <EOS> <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' # ) <EOS> <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; ) <EOS> <EOS>
+OP: None, pos: 7, vocab: 9-;
+
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+' or ' 1'= ' 1 ' # ) <EOS> <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' ; ) <EOS> <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; and <EOS> <EOS>
+OP: None, pos: 8, vocab: 10-and
+ Epoch: 211. Mean Return: 13.70. Mean Length: 50.00
+  4%|##9                                                                   | 211/5000 [25:38<11:11:22,  8.41s/episodes] Epoch: 212. Mean Return: -9.00. Mean Length: 50.00
+  4%|##9                                                                   | 212/5000 [25:45<10:47:20,  8.11s/episodes] Epoch: 213. Mean Return: -5.90. Mean Length: 50.00
+  4%|##9                                                                   | 213/5000 [25:54<11:09:28,  8.39s/episodes] Epoch: 214. Mean Return: -10.00. Mean Length: 50.00
+  4%|###                                                                    | 214/5000 [25:59<9:30:22,  7.15s/episodes] Epoch: 215. Mean Return: -6.00. Mean Length: 50.00
+  4%|###                                                                   | 215/5000 [26:08<10:29:41,  7.90s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 ; ) <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 3, vocab: 9-;
+ Epoch: 216. Mean Return: 3.80. Mean Length: 50.00
+  4%|###                                                                   | 216/5000 [26:17<10:40:26,  8.03s/episodes] Epoch: 217. Mean Return: -5.60. Mean Length: 50.00
+  4%|###                                                                   | 217/5000 [26:26<11:12:28,  8.44s/episodes]
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Last seed string:
+1 or ' 1'= ' 1 ' ; -- ) <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+OP: None, pos: 0, vocab: 2-'
+
+SUCCESS_REWARD @ 5:
+
+Orig seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; ; ) <EOS>
+OP: None, pos: 8, vocab: 9-;
+ Epoch: 218. Mean Return: 8.30. Mean Length: 50.00
+  4%|###                                                                    | 218/5000 [26:31<9:38:40,  7.26s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 219. Mean Return: 4.20. Mean Length: 50.00
+  4%|###                                                                   | 219/5000 [26:40<10:23:23,  7.82s/episodes] Epoch: 220. Mean Return: -13.20. Mean Length: 50.00
+  4%|###1                                                                   | 220/5000 [26:43<8:41:05,  6.54s/episodes] Epoch: 221. Mean Return: -6.60. Mean Length: 50.00
+  4%|###1                                                                   | 221/5000 [26:52<9:27:59,  7.13s/episodes] Epoch: 222. Mean Return: -6.30. Mean Length: 50.00
+  4%|###1                                                                  | 222/5000 [27:00<10:00:26,  7.54s/episodes] Epoch: 223. Mean Return: -8.70. Mean Length: 50.00
+  4%|###1                                                                   | 223/5000 [27:07<9:48:12,  7.39s/episodes] Epoch: 224. Mean Return: -5.40. Mean Length: 50.00
+  4%|###1                                                                  | 224/5000 [27:17<10:51:47,  8.19s/episodes] Epoch: 225. Mean Return: -6.40. Mean Length: 50.00
+  4%|###1                                                                  | 225/5000 [27:26<10:58:54,  8.28s/episodes] Epoch: 226. Mean Return: -6.30. Mean Length: 50.00
+  5%|###1                                                                  | 226/5000 [27:34<10:57:01,  8.26s/episodes] Epoch: 227. Mean Return: -6.10. Mean Length: 50.00
+  5%|###1                                                                  | 227/5000 [27:43<11:05:07,  8.36s/episodes] Epoch: 228. Mean Return: -5.90. Mean Length: 50.00
+  5%|###1                                                                  | 228/5000 [27:52<11:36:03,  8.75s/episodes] Epoch: 229. Mean Return: -5.60. Mean Length: 50.00
+  5%|###2                                                                  | 229/5000 [28:02<11:52:36,  8.96s/episodes] Epoch: 230. Mean Return: -5.90. Mean Length: 50.00
+  5%|###2                                                                  | 230/5000 [28:11<11:56:54,  9.02s/episodes] Epoch: 231. Mean Return: -7.10. Mean Length: 50.00
+  5%|###2                                                                  | 231/5000 [28:18<11:22:25,  8.59s/episodes] Epoch: 232. Mean Return: -14.30. Mean Length: 50.00
+  5%|###2                                                                   | 232/5000 [28:21<8:52:03,  6.70s/episodes] Epoch: 233. Mean Return: -8.20. Mean Length: 50.00
+  5%|###3                                                                   | 233/5000 [28:28<9:04:20,  6.85s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' # <EOS> <EOS>
+Last seed string:
+( ' or ' 1'= ' 1 ' # <EOS> <EOS>
+Curr seed string:
+( ' or ' 1'= ' 1 ' # <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 234. Mean Return: 4.10. Mean Length: 50.00
+  5%|###3                                                                   | 234/5000 [28:37<9:54:33,  7.48s/episodes] Epoch: 235. Mean Return: -8.40. Mean Length: 50.00
+  5%|###3                                                                   | 235/5000 [28:44<9:49:53,  7.43s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 # ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 236. Mean Return: 3.60. Mean Length: 50.00
+  5%|###3                                                                  | 236/5000 [28:52<10:06:14,  7.64s/episodes] Epoch: 237. Mean Return: -6.50. Mean Length: 50.00
+  5%|###3                                                                  | 237/5000 [29:01<10:23:54,  7.86s/episodes] Epoch: 238. Mean Return: -6.40. Mean Length: 50.00
+  5%|###3                                                                  | 238/5000 [29:10<10:46:37,  8.15s/episodes] Epoch: 239. Mean Return: -6.20. Mean Length: 50.00
+  5%|###3                                                                  | 239/5000 [29:18<11:05:04,  8.38s/episodes] Epoch: 240. Mean Return: -7.10. Mean Length: 50.00
+  5%|###3                                                                  | 240/5000 [29:27<10:56:55,  8.28s/episodes] Epoch: 241. Mean Return: -6.20. Mean Length: 50.00
+  5%|###3                                                                  | 241/5000 [29:35<11:06:46,  8.41s/episodes] Epoch: 242. Mean Return: -6.10. Mean Length: 50.00
+  5%|###3                                                                  | 242/5000 [29:44<11:21:09,  8.59s/episodes] Epoch: 243. Mean Return: -5.70. Mean Length: 50.00
+  5%|###4                                                                  | 243/5000 [29:53<11:29:45,  8.70s/episodes] Epoch: 244. Mean Return: -6.50. Mean Length: 50.00
+  5%|###4                                                                  | 244/5000 [30:02<11:22:59,  8.62s/episodes] Epoch: 245. Mean Return: -5.70. Mean Length: 50.00
+  5%|###4                                                                  | 245/5000 [30:11<11:35:17,  8.77s/episodes] Epoch: 246. Mean Return: -5.70. Mean Length: 50.00
+  5%|###4                                                                  | 246/5000 [30:20<11:52:26,  8.99s/episodes] Epoch: 247. Mean Return: -5.60. Mean Length: 50.00
+  5%|###4                                                                  | 247/5000 [30:30<12:01:59,  9.11s/episodes] Epoch: 248. Mean Return: -5.70. Mean Length: 50.00
+  5%|###4                                                                  | 248/5000 [30:39<12:16:53,  9.30s/episodes] Epoch: 249. Mean Return: -5.90. Mean Length: 50.00
+  5%|###4                                                                  | 249/5000 [30:48<12:01:26,  9.11s/episodes] Epoch: 250. Mean Return: -6.40. Mean Length: 50.00
+  5%|###5                                                                  | 250/5000 [30:56<11:40:03,  8.84s/episodes] Epoch: 251. Mean Return: -6.70. Mean Length: 50.00
+  5%|###5                                                                  | 251/5000 [31:04<11:22:47,  8.63s/episodes] Epoch: 252. Mean Return: -6.10. Mean Length: 50.00
+  5%|###5                                                                  | 252/5000 [31:13<11:17:02,  8.56s/episodes] Epoch: 253. Mean Return: -5.80. Mean Length: 50.00
+  5%|###5                                                                  | 253/5000 [31:22<11:22:24,  8.63s/episodes] Epoch: 254. Mean Return: -5.50. Mean Length: 50.00
+  5%|###5                                                                  | 254/5000 [31:31<11:42:00,  8.87s/episodes] Epoch: 255. Mean Return: -10.50. Mean Length: 50.00
+  5%|###5                                                                  | 255/5000 [31:36<10:17:56,  7.81s/episodes] Epoch: 256. Mean Return: -6.70. Mean Length: 50.00
+  5%|###5                                                                  | 256/5000 [31:44<10:19:03,  7.83s/episodes] Epoch: 257. Mean Return: -6.80. Mean Length: 50.00
+  5%|###5                                                                  | 257/5000 [31:52<10:20:41,  7.85s/episodes] Epoch: 258. Mean Return: -6.40. Mean Length: 50.00
+  5%|###6                                                                  | 258/5000 [32:01<10:35:42,  8.04s/episodes] Epoch: 259. Mean Return: -5.50. Mean Length: 50.00
+  5%|###6                                                                  | 259/5000 [32:10<11:11:29,  8.50s/episodes] Epoch: 260. Mean Return: -5.90. Mean Length: 50.00
+  5%|###6                                                                  | 260/5000 [32:19<11:16:55,  8.57s/episodes] Epoch: 261. Mean Return: -5.70. Mean Length: 50.00
+  5%|###6                                                                  | 261/5000 [32:28<11:39:24,  8.86s/episodes] Epoch: 262. Mean Return: -5.90. Mean Length: 50.00
+  5%|###6                                                                  | 262/5000 [32:38<11:46:36,  8.95s/episodes] Epoch: 263. Mean Return: -6.00. Mean Length: 50.00
+  5%|###6                                                                  | 263/5000 [32:46<11:39:47,  8.86s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+( ' or 1=1 -- ) <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 264. Mean Return: 4.50. Mean Length: 50.00
+  5%|###6                                                                  | 264/5000 [32:56<11:56:02,  9.07s/episodes] Epoch: 265. Mean Return: -6.50. Mean Length: 50.00
+  5%|###7                                                                  | 265/5000 [33:04<11:34:29,  8.80s/episodes] Epoch: 266. Mean Return: -6.60. Mean Length: 50.00
+  5%|###7                                                                  | 266/5000 [33:12<11:11:03,  8.51s/episodes] Epoch: 267. Mean Return: -6.30. Mean Length: 50.00
+  5%|###7                                                                  | 267/5000 [33:21<11:18:31,  8.60s/episodes] Epoch: 268. Mean Return: -5.80. Mean Length: 50.00
+  5%|###7                                                                  | 268/5000 [33:30<11:30:02,  8.75s/episodes] Epoch: 269. Mean Return: -7.00. Mean Length: 50.00
+  5%|###7                                                                  | 269/5000 [33:37<11:02:44,  8.41s/episodes] Epoch: 270. Mean Return: -5.50. Mean Length: 50.00
+  5%|###7                                                                  | 270/5000 [33:47<11:36:03,  8.83s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; ) ) <EOS>
+OP: None, pos: 8, vocab: 4-)
+ Epoch: 271. Mean Return: 3.50. Mean Length: 50.00
+  5%|###7                                                                  | 271/5000 [33:56<11:26:53,  8.71s/episodes] Epoch: 272. Mean Return: -8.10. Mean Length: 50.00
+  5%|###8                                                                  | 272/5000 [34:03<10:51:04,  8.26s/episodes] Epoch: 273. Mean Return: -6.00. Mean Length: 50.00
+  5%|###8                                                                  | 273/5000 [34:12<11:18:22,  8.61s/episodes] Epoch: 274. Mean Return: -5.40. Mean Length: 50.00
+  5%|###8                                                                  | 274/5000 [34:22<11:42:44,  8.92s/episodes] Epoch: 275. Mean Return: -5.40. Mean Length: 50.00
+  6%|###8                                                                  | 275/5000 [34:32<12:02:14,  9.17s/episodes] Epoch: 276. Mean Return: -6.00. Mean Length: 50.00
+  6%|###8                                                                  | 276/5000 [34:40<11:49:53,  9.02s/episodes] Epoch: 277. Mean Return: -6.10. Mean Length: 50.00
+  6%|###8                                                                  | 277/5000 [34:49<11:39:36,  8.89s/episodes] Epoch: 278. Mean Return: -6.00. Mean Length: 50.00
+  6%|###8                                                                  | 278/5000 [34:58<11:49:13,  9.01s/episodes] Epoch: 279. Mean Return: -5.80. Mean Length: 50.00
+  6%|###9                                                                  | 279/5000 [35:07<11:50:11,  9.03s/episodes] Epoch: 280. Mean Return: -5.10. Mean Length: 50.00
+  6%|###9                                                                  | 280/5000 [35:18<12:18:55,  9.39s/episodes] Epoch: 281. Mean Return: -5.40. Mean Length: 50.00
+  6%|###9                                                                  | 281/5000 [35:27<12:21:20,  9.43s/episodes] Epoch: 282. Mean Return: -5.50. Mean Length: 50.00
+  6%|###9                                                                  | 282/5000 [35:37<12:32:24,  9.57s/episodes] Epoch: 283. Mean Return: -5.50. Mean Length: 50.00
+  6%|###9                                                                  | 283/5000 [35:46<12:32:10,  9.57s/episodes] Epoch: 284. Mean Return: -5.20. Mean Length: 50.00
+  6%|###9                                                                  | 284/5000 [35:57<12:44:18,  9.72s/episodes] Epoch: 285. Mean Return: -5.40. Mean Length: 50.00
+  6%|###9                                                                  | 285/5000 [36:06<12:42:28,  9.70s/episodes] Epoch: 286. Mean Return: -6.10. Mean Length: 50.00
+  6%|####                                                                  | 286/5000 [36:15<12:14:22,  9.35s/episodes] Epoch: 287. Mean Return: -7.00. Mean Length: 50.00
+  6%|####                                                                  | 287/5000 [36:23<11:58:46,  9.15s/episodes] Epoch: 288. Mean Return: -5.40. Mean Length: 50.00
+  6%|####                                                                  | 288/5000 [36:33<12:12:18,  9.32s/episodes] Epoch: 289. Mean Return: -5.80. Mean Length: 50.00
+  6%|####                                                                  | 289/5000 [36:42<12:04:28,  9.23s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or 1=1 # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Last seed string:
+' or 1=1 # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+Curr seed string:
+' or 1=1 # <EOS> <EOS> <EOS> <EOS> <EOS> <EOS> <EOS>
+OP: None, pos: 9, vocab: 11-or
+ Epoch: 290. Mean Return: 4.70. Mean Length: 50.00
+  6%|####                                                                  | 290/5000 [36:52<12:09:33,  9.29s/episodes] Epoch: 291. Mean Return: -5.80. Mean Length: 50.00
+  6%|####                                                                  | 291/5000 [37:01<12:11:43,  9.32s/episodes] Epoch: 292. Mean Return: -5.60. Mean Length: 50.00
+  6%|####                                                                  | 292/5000 [37:10<12:14:57,  9.37s/episodes] Epoch: 293. Mean Return: -6.80. Mean Length: 50.00
+  6%|####1                                                                 | 293/5000 [37:18<11:40:50,  8.93s/episodes] Epoch: 294. Mean Return: -5.80. Mean Length: 50.00
+  6%|####1                                                                 | 294/5000 [37:27<11:43:22,  8.97s/episodes] Epoch: 295. Mean Return: -6.20. Mean Length: 50.00
+  6%|####1                                                                 | 295/5000 [37:36<11:45:22,  9.00s/episodes] Epoch: 296. Mean Return: -5.10. Mean Length: 50.00
+  6%|####1                                                                 | 296/5000 [37:47<12:20:14,  9.44s/episodes] Epoch: 297. Mean Return: -5.80. Mean Length: 50.00
+  6%|####1                                                                 | 297/5000 [37:56<12:16:34,  9.40s/episodes] Epoch: 298. Mean Return: -5.60. Mean Length: 50.00
+  6%|####1                                                                 | 298/5000 [38:06<12:17:26,  9.41s/episodes] Epoch: 299. Mean Return: -5.40. Mean Length: 50.00
+  6%|####1                                                                 | 299/5000 [38:16<12:37:55,  9.67s/episodes] Epoch: 300. Mean Return: -5.80. Mean Length: 50.00
+  6%|####2                                                                 | 300/5000 [38:26<12:38:28,  9.68s/episodes] Epoch: 301. Mean Return: -5.30. Mean Length: 50.00
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+  6%|####2                                                                 | 301/5000 [38:35<12:40:12,  9.71s/episodes] Epoch: 302. Mean Return: -5.20. Mean Length: 50.00
+  6%|####2                                                                 | 302/5000 [38:45<12:46:51,  9.79s/episodes] Epoch: 303. Mean Return: -5.10. Mean Length: 50.00
+  6%|####2                                                                 | 303/5000 [38:56<12:58:32,  9.95s/episodes] Epoch: 304. Mean Return: -5.20. Mean Length: 50.00
+  6%|####2                                                                 | 304/5000 [39:06<12:58:47,  9.95s/episodes] Epoch: 305. Mean Return: -5.30. Mean Length: 50.00
+  6%|####2                                                                 | 305/5000 [39:15<12:50:11,  9.84s/episodes] Epoch: 306. Mean Return: -5.10. Mean Length: 50.00
+  6%|####2                                                                 | 306/5000 [39:26<13:00:20,  9.97s/episodes] Epoch: 307. Mean Return: -5.60. Mean Length: 50.00
+  6%|####2                                                                 | 307/5000 [39:35<12:49:08,  9.83s/episodes] Epoch: 308. Mean Return: -5.00. Mean Length: 50.00
+  6%|####3                                                                 | 308/5000 [39:45<12:50:52,  9.86s/episodes] Epoch: 309. Mean Return: -5.00. Mean Length: 50.00
+  6%|####3                                                                 | 309/5000 [39:55<12:51:28,  9.87s/episodes] Epoch: 310. Mean Return: -5.20. Mean Length: 50.00
+  6%|####3                                                                 | 310/5000 [40:05<12:52:06,  9.88s/episodes] Epoch: 311. Mean Return: -5.20. Mean Length: 50.00
+  6%|####3                                                                 | 311/5000 [40:15<12:50:24,  9.86s/episodes] Epoch: 312. Mean Return: -5.20. Mean Length: 50.00
+  6%|####3                                                                 | 312/5000 [40:24<12:46:46,  9.81s/episodes] Epoch: 313. Mean Return: -5.10. Mean Length: 50.00
+  6%|####3                                                                 | 313/5000 [40:34<12:47:10,  9.82s/episodes] Epoch: 314. Mean Return: -6.80. Mean Length: 50.00
+  6%|####3                                                                 | 314/5000 [40:42<11:53:33,  9.14s/episodes] Epoch: 315. Mean Return: -5.00. Mean Length: 50.00
+  6%|####4                                                                 | 315/5000 [40:52<12:19:04,  9.47s/episodes] Epoch: 316. Mean Return: -7.40. Mean Length: 50.00
+  6%|####4                                                                 | 316/5000 [40:59<11:18:55,  8.70s/episodes] Epoch: 317. Mean Return: -5.50. Mean Length: 50.00
+  6%|####4                                                                 | 317/5000 [41:08<11:41:13,  8.98s/episodes] Epoch: 318. Mean Return: -5.00. Mean Length: 50.00
+  6%|####4                                                                 | 318/5000 [41:19<12:13:40,  9.40s/episodes] Epoch: 319. Mean Return: -5.60. Mean Length: 50.00
+  6%|####4                                                                 | 319/5000 [41:29<12:23:52,  9.53s/episodes] Epoch: 320. Mean Return: -5.10. Mean Length: 50.00
+  6%|####4                                                                 | 320/5000 [41:39<12:30:06,  9.62s/episodes] Epoch: 321. Mean Return: -5.20. Mean Length: 50.00
+  6%|####4                                                                 | 321/5000 [41:48<12:32:38,  9.65s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+( ' or ' 1'= ' 1 ' ; # <EOS>
+Last seed string:
+( ' or ' 1'= ' 1 ' ; # <EOS>
+Curr seed string:
+( ' or ' 1'= ' 1 ' ; # <EOS>
+OP: None, pos: 1, vocab: 2-'
+ Epoch: 322. Mean Return: 4.00. Mean Length: 50.00
+  6%|####5                                                                 | 322/5000 [41:58<12:27:36,  9.59s/episodes] Epoch: 323. Mean Return: -5.00. Mean Length: 50.00
+  6%|####5                                                                 | 323/5000 [42:08<12:33:33,  9.67s/episodes] Epoch: 324. Mean Return: -5.10. Mean Length: 50.00
+  6%|####5                                                                 | 324/5000 [42:18<12:40:26,  9.76s/episodes] Epoch: 325. Mean Return: -5.00. Mean Length: 50.00
+  6%|####5                                                                 | 325/5000 [42:28<12:48:26,  9.86s/episodes] Epoch: 326. Mean Return: -5.20. Mean Length: 50.00
+  7%|####5                                                                 | 326/5000 [42:38<12:50:48,  9.89s/episodes] Epoch: 327. Mean Return: -5.20. Mean Length: 50.00
+  7%|####5                                                                 | 327/5000 [42:47<12:44:39,  9.82s/episodes] Epoch: 328. Mean Return: -5.00. Mean Length: 50.00
+  7%|####5                                                                 | 328/5000 [42:57<12:49:06,  9.88s/episodes] Epoch: 329. Mean Return: -5.00. Mean Length: 50.00
+  7%|####6                                                                 | 329/5000 [43:08<13:07:15, 10.11s/episodes] Epoch: 330. Mean Return: -5.10. Mean Length: 50.00
+  7%|####6                                                                 | 330/5000 [43:18<13:00:27, 10.03s/episodes] Epoch: 331. Mean Return: -5.40. Mean Length: 50.00
+  7%|####6                                                                 | 331/5000 [43:27<12:45:37,  9.84s/episodes] Epoch: 332. Mean Return: -5.30. Mean Length: 50.00
+  7%|####6                                                                 | 332/5000 [43:37<12:43:42,  9.82s/episodes] Epoch: 333. Mean Return: -5.40. Mean Length: 50.00
+  7%|####6                                                                 | 333/5000 [43:47<12:41:59,  9.80s/episodes] Epoch: 334. Mean Return: -5.00. Mean Length: 50.00
+  7%|####6                                                                 | 334/5000 [43:57<12:55:04,  9.97s/episodes] Epoch: 335. Mean Return: -5.10. Mean Length: 50.00
+  7%|####6                                                                 | 335/5000 [44:07<12:49:47,  9.90s/episodes] Epoch: 336. Mean Return: -5.00. Mean Length: 50.00
+  7%|####7                                                                 | 336/5000 [44:17<12:55:47,  9.98s/episodes] Epoch: 337. Mean Return: -5.20. Mean Length: 50.00
+  7%|####7                                                                 | 337/5000 [44:27<12:49:29,  9.90s/episodes] Epoch: 338. Mean Return: -5.00. Mean Length: 50.00
+  7%|####7                                                                 | 338/5000 [44:37<12:57:21, 10.00s/episodes] Epoch: 339. Mean Return: -5.10. Mean Length: 50.00
+  7%|####7                                                                 | 339/5000 [44:47<13:00:51, 10.05s/episodes] Epoch: 340. Mean Return: -5.10. Mean Length: 50.00
+  7%|####7                                                                 | 340/5000 [44:57<12:59:51, 10.04s/episodes] Epoch: 341. Mean Return: -5.30. Mean Length: 50.00
+  7%|####7                                                                 | 341/5000 [45:07<12:52:02,  9.94s/episodes] Epoch: 342. Mean Return: -5.10. Mean Length: 50.00
+  7%|####7                                                                 | 342/5000 [45:17<12:49:56,  9.92s/episodes] Epoch: 343. Mean Return: -5.10. Mean Length: 50.00
+  7%|####8                                                                 | 343/5000 [45:27<12:51:41,  9.94s/episodes] Epoch: 344. Mean Return: -5.20. Mean Length: 50.00
+  7%|####8                                                                 | 344/5000 [45:36<12:45:00,  9.86s/episodes] Epoch: 345. Mean Return: -5.60. Mean Length: 50.00
+  7%|####8                                                                 | 345/5000 [45:46<12:42:54,  9.83s/episodes] Epoch: 346. Mean Return: -5.00. Mean Length: 50.00
+  7%|####8                                                                 | 346/5000 [45:56<12:40:03,  9.80s/episodes] Epoch: 347. Mean Return: -5.10. Mean Length: 50.00
+  7%|####8                                                                 | 347/5000 [46:05<12:35:50,  9.75s/episodes] Epoch: 348. Mean Return: -5.40. Mean Length: 50.00
+  7%|####8                                                                 | 348/5000 [46:15<12:31:35,  9.69s/episodes] Epoch: 349. Mean Return: -5.00. Mean Length: 50.00
+  7%|####8                                                                 | 349/5000 [46:25<12:45:18,  9.87s/episodes] Epoch: 350. Mean Return: -5.10. Mean Length: 50.00
+  7%|####9                                                                 | 350/5000 [46:35<12:50:12,  9.94s/episodes] Epoch: 351. Mean Return: -5.00. Mean Length: 50.00
+  7%|####9                                                                 | 351/5000 [46:46<13:14:20, 10.25s/episodes]
+SUCCESS_REWARD @ 1:
+
+Orig seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+OP: None, pos: 10, vocab: 9-;
+
+SUCCESS_REWARD @ 2:
+
+Orig seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Last seed string:
+' or ' 1'= ' 1 ' ; -- ) <EOS>
+Curr seed string:
+' or ' 1'= ' 1 ' ; -- and <EOS>
+OP: None, pos: 9, vocab: 10-and
+ Epoch: 352. Mean Return: 15.20. Mean Length: 50.00
+  7%|####9                                                                 | 352/5000 [46:57<13:21:15, 10.34s/episodes] Epoch: 353. Mean Return: -5.20. Mean Length: 50.00
+  7%|####9                                                                 | 353/5000 [47:07<13:07:36, 10.17s/episodes] Epoch: 354. Mean Return: -5.00. Mean Length: 50.00
+  7%|####9                                                                 | 354/5000 [47:17<13:00:45, 10.08s/episodes] Epoch: 355. Mean Return: -5.00. Mean Length: 50.00
+  7%|####9                                                                 | 355/5000 [47:26<12:55:17, 10.01s/episodes] Epoch: 356. Mean Return: -5.10. Mean Length: 50.00
+  7%|####9                                                                 | 356/5000 [47:37<13:09:33, 10.20s/episodes]
