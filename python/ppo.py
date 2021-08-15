@@ -115,7 +115,7 @@ train_policy_iterations = 80
 train_value_iterations = 80
 lam = 0.97
 target_kl = 0.01
-hidden_sizes = (64, 64)
+hidden_sizes = (128, 64)
 
 
 # In[ ]:
@@ -387,9 +387,9 @@ class Buffer:
         )
 
 def mlp(x, sizes, activation=tf.tanh, output_activation=None):
-    embed_dim = 16  # Embedding size for each token
-    num_heads = 2  # Number of attention heads
-    ff_dim = 32  # Hidden layer size in feed forward network inside transformer
+    embed_dim = 32  # Embedding size for each token
+    num_heads = 4  # Number of attention heads
+    ff_dim = 64  # Hidden layer size in feed forward network inside transformer
 
     embedding_layer = TokenAndPositionEmbedding(MAX_LENGTH, VOCAB_SIZE, embed_dim)
     x = embedding_layer(x)
