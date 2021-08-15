@@ -4,6 +4,12 @@
 # In[ ]:
 
 
+# searchbar penalty + login
+
+
+# In[ ]:
+
+
 import pandas as pd
 import nltk
 nltk.download('punkt')
@@ -47,7 +53,30 @@ for gram_inp in all_grammar_inputs:
     all_grammar_inputs_mod.append(gram_inp)
     all_grammar_inputs_mod.append(gram_inp.replace("'", ')'))
 
-all_grammar_inputs = all_grammar_inputs_mod.copy()
+all_grammar_inputs1 = all_grammar_inputs_mod.copy()
+
+
+# In[ ]:
+
+
+with open("grammar_lib/all_grammar_inputs.txt") as file:
+    all_grammar_inputs = [line.strip() for line in file]
+
+all_grammar_inputs_mod = []
+for gram_inp in all_grammar_inputs:
+    if not any(txt_chk in gram_inp.lower() for txt_chk in ['union', 'order', 'admin', '/*', "1'="]):
+        all_grammar_inputs_mod.append(gram_inp)
+        all_grammar_inputs_mod.append(gram_inp.replace('OR', 'AND'))
+        if random.random()<0.5:
+            all_grammar_inputs_mod.append(gram_inp.replace("'", '('))
+
+all_grammar_inputs2 = all_grammar_inputs_mod.copy()
+
+
+# In[ ]:
+
+
+all_grammar_inputs = all_grammar_inputs1+all_grammar_inputs2
 
 
 # In[ ]:
@@ -100,7 +129,7 @@ VOCAB_SIZE, max_len
 """
 
 # Hyperparameters of the PPO algorithm
-MODEL_NAME = "RLFuzzPPOSearchPen_v1"
+MODEL_NAME = "RLFuzzPPOCombined_v1"
 steps_per_epoch = 50
 epochs = 5000
 gamma = 0.99
@@ -230,6 +259,8 @@ class RLFuzzEnv:
         else: # check via website
             if self.last_status == 1:
                 self.session.reset_session()
+            
+            # Search box
 
             url="http://localhost/demo/example_mysql_injection_search_box.php"
             jsonFilePath = './Stub/conditions1.json'
@@ -240,14 +271,31 @@ class RLFuzzEnv:
             logindata=self.session.form_input_feeding(keys,values,form_details)
             pass_Conditions, fail_Conditions = self.session.jsonReading(jsonFilePath)
             status = self.session.validation(url, logindata, keys, pass_Conditions, fail_Conditions)
-            self.last_status = status
             
             status_ex = self.session.exceptionCatcher(url, logindata)
             
             exception_success = True if status_ex==1 else False
+            
+            fuzzing_success1 = True if status==1 else False
+            
+            # Login page
+            
+            url="http://localhost/demo/example_mysql_injection_login.php"
+            jsonFilePath = './Stub/conditions.json'
+            receive=self.session.s.get(url)
+            form_details,keys=self.session.preprocessing_Form_Fields(url)
 
-            fuzzing_success = True if status==1 else False
+            values=[username_rl, "RaNdOmStRiNg"]
+            logindata=self.session.form_input_feeding(keys,values,form_details)
+            pass_Conditions, fail_Conditions = self.session.jsonReading(jsonFilePath)
+            status = self.session.validation(url, logindata, keys, pass_Conditions, fail_Conditions)
+            self.last_status = status
+            fuzzing_success2 = True if status==1 else False
+            
+            # Common
 
+            fuzzing_success = fuzzing_success1 or fuzzing_success2
+            
             if fuzzing_success:
 #                 print(f"\nSUCCESS_REWARD @ {self.episode_step}: ")
 #                 print(self.fuzzer)
@@ -466,7 +514,13 @@ for epoch in tqdm(range(epochs), ascii=True, unit='episodes'):
         logits, action = sample_action(observation)
         
         obs_text_list = [ind2word[i] for i in observation[0]]
-        if ";" not in obs_text_list and obs_text_list.index("<EOS>")!=MAX_LENGTH-1 and random.random()<=0.9:
+        
+        if "and" in obs_text_list and random.random()<=0.9:
+            # print("--- and->or ---@", t)
+            action = [env.squeeze_actions(action_pos = obs_text_list.index("and"), action_vocab = word2ind["or"])]
+            action = tf.constant(action, dtype=tf.int64)
+        
+        elif ";" not in obs_text_list and obs_text_list.index("<EOS>")!=MAX_LENGTH-1 and random.random()<=0.9:
             # print("--- semicolon ---@", t)
             action = [env.squeeze_actions(action_pos = obs_text_list.index("<EOS>"), action_vocab = word2ind[";"])]
             action = tf.constant(action, dtype=tf.int64)
