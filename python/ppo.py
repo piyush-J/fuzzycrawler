@@ -129,7 +129,7 @@ VOCAB_SIZE, max_len
 """
 
 # Hyperparameters of the PPO algorithm
-MODEL_NAME = "RLFuzzPPOCombined_v1"
+MODEL_NAME = "RLFuzzPPOCombinedTr_v1"
 steps_per_epoch = 50
 epochs = 5000
 gamma = 0.99
@@ -391,11 +391,51 @@ class Buffer:
         )
 
 
+class TransformerBlock(layers.Layer):
+    def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
+        super(TransformerBlock, self).__init__()
+        self.att = layers.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+        self.ffn = keras.Sequential(
+            [layers.Dense(ff_dim, activation="relu"), layers.Dense(embed_dim),]
+        )
+        self.layernorm1 = layers.LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = layers.LayerNormalization(epsilon=1e-6)
+        self.dropout1 = layers.Dropout(rate)
+        self.dropout2 = layers.Dropout(rate)
+
+    def call(self, inputs, training):
+        attn_output, weights = self.att(inputs, inputs, return_attention_scores=True)
+        attn_output1 = self.dropout1(attn_output, training=training)
+        out1 = self.layernorm1(inputs + attn_output1)
+        ffn_output = self.ffn(out1)
+        ffn_output = self.dropout2(ffn_output, training=training)
+        return self.layernorm2(out1 + ffn_output), weights
+    
+class TokenAndPositionEmbedding(layers.Layer):
+    def __init__(self, maxlen, vocab_size, embed_dim):
+        super(TokenAndPositionEmbedding, self).__init__()
+        self.token_emb = layers.Embedding(input_dim=vocab_size, output_dim=embed_dim)
+        self.pos_emb = layers.Embedding(input_dim=maxlen, output_dim=embed_dim)
+
+    def call(self, x):
+        maxlen = tf.shape(x)[-1]
+        positions = tf.range(start=0, limit=maxlen, delta=1)
+        positions = self.pos_emb(positions)
+        x = self.token_emb(x)
+        return x + positions
+
+    
 def mlp(x, sizes, activation=tf.tanh, output_activation=None):
-    # Build a feedforward neural network
-    x = layers.Embedding(VOCAB_SIZE, 16)(x)
-    x= layers.GRU(32, return_sequences=False)(x)
-    x = layers.Dropout(0.2)(x)
+    embed_dim = 16  # Embedding size for each token
+    num_heads = 2  # Number of attention heads
+    ff_dim = 32  # Hidden layer size in feed forward network inside transformer
+
+    embedding_layer = TokenAndPositionEmbedding(MAX_LENGTH, VOCAB_SIZE, embed_dim)
+    x = embedding_layer(x)
+    transformer_block = TransformerBlock(embed_dim, num_heads, ff_dim)
+    x, attn_output = transformer_block(x)
+    x = layers.GlobalAveragePooling1D()(x)
+    x = layers.Dropout(0.1)(x)
     for size in sizes[:-1]:
         x = layers.Dense(units=size, activation=activation)(x)
     return layers.Dense(units=sizes[-1], activation=output_activation)(x)
@@ -594,15 +634,15 @@ for epoch in tqdm(range(epochs), ascii=True, unit='episodes'):
     if epoch%100==0:
         mean_agg = sum(agg_rewards[-100:])/len(agg_rewards[-100:])
         print("Mean Aggregate: ", mean_agg)
-        actor.save(f'models/{MODEL_NAME}__ep_{epoch}__{(sum_return / num_episodes):.2f}__actor.h5')
-        critic.save(f'models/{MODEL_NAME}__ep_{epoch}__{(sum_return / num_episodes):.2f}__critic.h5')
+        actor.save(f'models/{MODEL_NAME}__ep_{epoch}__{(sum_return / num_episodes):.2f}__actor')
+        critic.save(f'models/{MODEL_NAME}__ep_{epoch}__{(sum_return / num_episodes):.2f}__critic')
 
 
 # In[ ]:
 
 
-actor.save(f'models/{MODEL_NAME}_FINAL__ep_{epoch}__{(sum_return / num_episodes):.2f}__actor.h5')
-critic.save(f'models/{MODEL_NAME}_FINAL__ep_{epoch}__{(sum_return / num_episodes):.2f}__critic.h5')
+actor.save(f'models/{MODEL_NAME}_FINAL__ep_{epoch}__{(sum_return / num_episodes):.2f}__actor')
+critic.save(f'models/{MODEL_NAME}_FINAL__ep_{epoch}__{(sum_return / num_episodes):.2f}__critic')
 
 
 # In[ ]:
