@@ -1,3 +1,0 @@
-v0 - Attention with permutation
-v1 - Transformers
-v1.1 - Cherry picked tests & limited vocab size (12), 4k episodes, EPSILON_DECAY = 0.999, better prints
